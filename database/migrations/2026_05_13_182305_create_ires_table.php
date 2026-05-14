@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->dateTime('sakuma_laiks');
             $table->dateTime('beigu_laiks');
-            $table->decimal('nobraukais_attalums', 9, 3);
+            $table->decimal('nobrauktais_attalums', 9, 3);
             $table->string('statuss', 15);
             $table->decimal('cena', 10, 2);
             $table->foreignId('lietotajs_id')->constrained()->onDelete('cascade');

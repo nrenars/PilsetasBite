@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('apraksts');
             $table->decimal('summa', 10, 2);
             $table->string('tips', 30);
-            $table->string('statuss', 10);
+            $table->string('statuss', 20);
             $table->foreignId('lietotajs_id')->constrained()->onDelete('cascade');
             $table->foreignId('ire_id')->constrained()->onDelete('cascade');
 

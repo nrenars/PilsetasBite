@@ -15,8 +15,8 @@ class Lietotajs extends Authenticatable
         'vaditaja_apliecibas_nr',
         'vaditaja_apliecibas_statuss',
         'vaditaja_apliecibas_termins',
-        'izveidots',
         'statuss',
+        'izveidots',
         'loma',
     ];
     public function ire()

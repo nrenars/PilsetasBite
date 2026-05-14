@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('registracijas_nr', 8);
             $table->unsignedSmallInteger('gads');
-            $table->unsignedTinyInteger('degvielas_limenis');
-            $table->unsignedTinyInteger('baterijas_limenis');
+            $table->unsignedTinyInteger('degvielas_limenis')->nullable();
+            $table->unsignedTinyInteger('baterijas_limenis')->nullable();
             $table->string('statuss', 10);
             $table->dateTime('tehniskas_apskates_termins');
 
