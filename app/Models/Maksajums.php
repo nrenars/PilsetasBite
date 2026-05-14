@@ -15,6 +15,6 @@ class Maksajums extends Model
     ];
     public function ire()
     {
-        return $this->hasMany(Ire::class, 'maksajums_id');
+        return $this->belongsTo(Ire::class, 'ire_id');
     }
 }

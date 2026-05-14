@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('vaditaja_apliecibas_statuss', 10);
             $table->dateTime('vaditaja_apliecibas_termins');
             $table->dateTime('izveidots');
+            $table->string('loma', 15);
         });
     }
 

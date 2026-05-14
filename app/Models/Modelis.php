@@ -15,6 +15,6 @@ class Modelis extends Model
     ];
     public function masina()
     {
-        return $this->hasMany(Masina::class, 'apkope_id');
+        return $this->hasMany(Masina::class, 'modelis_id');
     }
 }

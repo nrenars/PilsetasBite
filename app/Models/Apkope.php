@@ -14,6 +14,6 @@ class Apkope extends Model
     ];
     public function masina()
     {
-        return $this->hasMany(Masina::class, 'masina_id');
+        return $this->belongsTo(Masina::class, 'masina_id');
     }
 }
