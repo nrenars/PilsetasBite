@@ -19,20 +19,25 @@ class AuthController extends Controller
         $validated = $request->validate([
             'vards'            => 'required|string|max:255',
             'uzvards'            => 'required|string|max:255',
-            'epasts'                 => 'required|email|unique:users,email',
-            'telefons'                 => 'required|email|unique:users,email',
+            'epasts'                 => 'required|email|unique:lietotajs,epasts',
+            'telefons' => 'required|unique:lietotajs,telefons|regex:/^\+?[0-9]{8,15}$/',
             'parole'              => 'required|min:8|confirmed',
         ]);
         $user = Lietotajs::create([
-            'vards'     => $validated['vards'],
-            'uzvards'     => $validated['uzvards'],
-            'epasts'    => $validated['epasts'],
-            'parole' => Hash::make($validated['parole']),
+            'vards'        => $validated['vards'],
+            'uzvards'      => $validated['uzvards'],
+            'pilns_vards'  => $validated['vards'] . ' ' . $validated['uzvards'],
+            'epasts'       => $validated['epasts'],
+            'telefons'     => $validated['telefons'],
+            'paroles_hash' => Hash::make($validated['parole']),
+            'loma'         => 'lietotajs',
+            'statuss'      => 'aktīvs',
+            'izveidots'    => now(),
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('event.index')->with('success', "Registration sucessful");   
+        return redirect()->route('welcome')->with('success', "Registration sucessful");   
     }
     public function login(Request $request){
         $validated = $request->validate([
@@ -40,12 +45,16 @@ class AuthController extends Controller
             'parole' => 'required',              
         ]);
 
-        if (Auth::attempt(['epasts' => $validated['epasts'], 'parole' => $validated['parole']])) {
-            $request->session()->regenerate();
-            return redirect()->route('event.index')->with('success', 'Login successful');
-        }
+        $user = \App\Models\Lietotajs::where('epasts', $validated['epasts'])->first();
 
-        return back()->withErrors(['email' => 'Incorrect email or password']);
+        if ($user && Hash::check($validated['parole'], $user->paroles_hash)) {
+            Auth::login($user);
+            $request->session()->regenerate();
+            return redirect('/')->with('success', 'Login successful');
+        }
+        
+
+        return back()->withErrors(['epasts' => 'Incorrect email or password']);
     }
 
     public function logout(Request $request){
@@ -53,6 +62,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('event.index');
+        return redirect()->route('welcome');
     }
 }

@@ -8,7 +8,6 @@
     @vite(['resources/css/app.css'])
 </head>
 <body>
-
     <nav>
         <p><a href="/">PilsetasBite</a></p>
         @guest

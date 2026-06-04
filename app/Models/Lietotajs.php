@@ -11,6 +11,7 @@ class Lietotajs extends Authenticatable
         'uzvards',
         'pilns_vards',
         'epasts',
+        'telefons',
         'paroles_hash',
         'vaditaja_apliecibas_nr',
         'vaditaja_apliecibas_statuss',
@@ -19,6 +20,10 @@ class Lietotajs extends Authenticatable
         'izveidots',
         'loma',
     ];
+
+    protected $authPasswordName = 'paroles_hash';
+    protected $rememberTokenName = 'remember_token';
+
     public function ire()
     {
         return $this->hasMany(Ire::class, 'lietotajs_id');
@@ -35,4 +40,13 @@ class Lietotajs extends Authenticatable
     {
         return $this->hasMany(Parkapums::class, 'lietotajs_id');
     }
+    public function getAuthIdentifierName()
+    {
+        return 'epasts';
+    }
+    public function getAuthPassword()
+    {
+        return $this->paroles_hash;
+    }
+
 }

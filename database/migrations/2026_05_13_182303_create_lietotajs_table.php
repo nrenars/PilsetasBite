@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('epasts', 50);
             $table->string('telefons', 30);
             $table->string('paroles_hash', 100);
-            $table->string('vaditaja_apliecibas_nr', 10);
-            $table->string('vaditaja_apliecibas_statuss', 10);
-            $table->dateTime('vaditaja_apliecibas_termins');
+            $table->string('vaditaja_apliecibas_nr', 10)->nullable();
+            $table->string('vaditaja_apliecibas_statuss', 10)->nullable();
+            $table->dateTime('vaditaja_apliecibas_termins')->nullable();
             $table->string('statuss');
             $table->dateTime('izveidots');
             $table->string('loma', 15);
