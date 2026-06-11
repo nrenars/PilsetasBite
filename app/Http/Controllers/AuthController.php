@@ -64,4 +64,9 @@ class AuthController extends Controller
 
         return redirect()->route('welcome');
     }
+
+    public function showProfile(Request $request){
+        $user = Auth::user();
+        return view('auth.profile', compact('user'));
+    }
 }

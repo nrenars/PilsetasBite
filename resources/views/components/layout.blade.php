@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PilsetasBite</title>
     @vite(['resources/css/app.css'])
+    {{-- @vite(['resources/js/map.js']) --}}
 </head>
 <body>
     <nav>
@@ -19,6 +20,7 @@
                 @csrf
                 <button type="submit">Logout</button>
             </form>
+            <a href="{{ route('profile')}}">Profile</a>
         @endauth
     </nav>
     <main>
@@ -29,15 +31,7 @@
         @endif
         {{ $slot }}
     </main>
-    <script>
-        window.initMap = function() {
-            const map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 56.91861501307912, lng: 24.13682950619029 },
-                zoom: 12,
-                mapId: "{{ config('services.google_maps.map_id') }}"
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}&callback=initMap&loading=async" async defer></script>
+    @vite(['resources/js/map.js'])
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}" defer></script>
 </body>
 </html>

@@ -29,7 +29,12 @@
 
 
     <div id="map"></div> 
-
+    {{-- <script>
+        console.log(@json($masinas));
+    </script> --}}
+    <script>
+        window.masinas = @json($masinas);
+    </script>
 
     @if (Route::has('login'))
         <div class="h-14.5 hidden lg:block"></div>
