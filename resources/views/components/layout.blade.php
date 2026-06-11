@@ -6,22 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PilsetasBite</title>
     @vite(['resources/css/app.css'])
-    {{-- @vite(['resources/js/map.js']) --}}
+    <script src="https://kit.fontawesome.com/542c50e191.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <nav>
         <p><a href="/">PilsetasBite</a></p>
-        @guest
-            <a href="{{ route('register') }}">Register</a>     
-            <a href="{{ route('login') }}">Login</a>     
-        @endguest
-        @auth
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
-            <a href="{{ route('profile')}}">Profile</a>
-        @endauth
+        <div id="dropdown">
+            <i id="profile-icon" class="fa-regular fa-circle-user"></i>
+            <div id="dropdown-content">
+                @guest
+                <ul>
+                    <li>
+                        <a href="{{ route('register') }}">Register</a>     
+                    </li>
+                    <li>
+                        <a href="{{ route('login') }}">Login</a>     
+                    </li>
+                </ul>
+                @endguest
+                @auth
+                    <ul>
+                        <li>
+                            <a href="{{ route('showProfile')}}">Profile</a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                @endauth
+            </div>
+        </div>
     </nav>
     <main>
         @if(session('success'))

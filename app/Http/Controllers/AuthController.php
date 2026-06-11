@@ -62,11 +62,30 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('welcome');
+        return redirect()->route('welcome') ->with('success', 'You have logged out!');;
     }
 
     public function showProfile(Request $request){
         $user = Auth::user();
         return view('auth.profile', compact('user'));
+    }
+
+    public function update(Request $request){
+        
+    }
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('welcome')
+            ->with('success', 'Account deleted successfully!');
     }
 }

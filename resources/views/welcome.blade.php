@@ -27,11 +27,11 @@
 
     </div>
 
+    <div id="map-and-card">
+        <div id="map"></div> 
+        <div id="car-card"></div>
+    </div>
 
-    <div id="map"></div> 
-    {{-- <script>
-        console.log(@json($masinas));
-    </script> --}}
     <script>
         window.masinas = @json($masinas);
     </script>
