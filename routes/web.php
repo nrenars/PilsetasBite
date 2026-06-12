@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/', [CarController::class, 'index'])->name('welcome');
 
@@ -18,4 +19,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile',[AuthController::class, 'showProfile'])->name('showProfile');
     Route::delete('/profile', [AuthController::class, 'destroy'])->name('auth.destroy');
+    Route::post('/reservations/{masina}', [ReservationController::class, 'store']) ->name('reservations.store');
 });

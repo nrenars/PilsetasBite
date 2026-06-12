@@ -34,8 +34,8 @@ window.initMap = function () {
                 energyHtml = `<p>Nav datu</p>`;
             }
 
-            const reservationUrl = "{{ route('reservations.store') }}";
-            const csrfToken = "{{ csrf_token() }}";
+            const reservationUrl = `/reservations/${masina.id}`;
+            const csrfToken = window.csrfToken;
 
             carCard.innerHTML = `
                 <h2>${masina.modelis.marka} ${masina.modelis.modelis} | ${masina.statuss} </h2>
@@ -43,10 +43,9 @@ window.initMap = function () {
                 <p>Gads: ${masina.gads}</p>
                 <p>Vietu skaits: ${masina.modelis.vietu_skaits}</p>
                 <form action="${reservationUrl}" method="POST">
-                        <input type="hidden" name="_token" value="${csrfToken}">
-                        <input type="hidden" name="masina_id" value="${masina.id}">
-                        <button type="submit">Make a Reservation</button>
-                    </form>
+                    <input type="hidden" name="_token" value="${csrfToken}">
+                    <button type="submit">Make a Reservation</button>
+                </form>
                 <a href="/">Begin Ride</a>
             `;
         });

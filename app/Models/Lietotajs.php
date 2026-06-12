@@ -20,7 +20,7 @@ class Lietotajs extends Authenticatable
         'izveidots',
         'loma',
     ];
-
+    protected $primaryKey = 'id';
     protected $authPasswordName = 'paroles_hash';
     protected $rememberTokenName = 'remember_token';
 

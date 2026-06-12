@@ -51,7 +51,10 @@ nav p{
 #dropdown:hover #dropdown-content {
     display: block;
 }
-
+#filter-container{
+    display: flex;
+    gap: 10px;
+}
 #map-and-card {
     display: flex;
     gap: 50px;

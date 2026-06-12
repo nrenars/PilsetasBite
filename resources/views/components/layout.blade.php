@@ -14,6 +14,9 @@
         <p><a href="/">PilsetasBite</a></p>
         <div id="dropdown">
             <i id="profile-icon" class="fa-regular fa-circle-user"></i>
+            {{-- <i class="fa-solid fa-circle-user"></i> --}}
+            {{-- <i class="fa-regular fa-user"></i> --}}
+            {{-- <i class="fa-solid fa-user"></i> --}}
             <div id="dropdown-content">
                 @guest
                 <ul>

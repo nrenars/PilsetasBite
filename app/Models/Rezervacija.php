@@ -9,7 +9,9 @@ class Rezervacija extends Model
     protected $fillable = [
         'datums',
         'deriguma_beigas',
-        'statuss'
+        'statuss',
+        'lietotajs_id',
+        'masina_id'
     ];
     public function lietotajs()
     {
