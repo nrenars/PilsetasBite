@@ -76,16 +76,10 @@ class AuthController extends Controller
     public function destroy(Request $request)
     {
         $user = Auth::user();
-
         Auth::logout();
-
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()
-            ->route('welcome')
-            ->with('success', 'Account deleted successfully!');
+        return redirect()->route('welcome')->with('success', 'Account deleted successfully!');
     }
 }

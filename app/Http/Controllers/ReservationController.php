@@ -14,7 +14,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Rezervacija::find(Auth::user()->id);
+        return view('layout', compact('reservations'));
     }
 
     /**
@@ -38,8 +39,12 @@ class ReservationController extends Controller
             'masina_id' => $masina->id,
         ]);
         $reserved_car = Masina::find($masina->id);
-        $reserved_car->statuss = 'rezervēts';
+        $reserved_car->statuss = 'rezervēta';
         $reserved_car->save();
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
 
         return redirect()->route('welcome')->with('success', 'Reservation succcessful!');
     }
@@ -47,11 +52,11 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $reservations = Rezervacija::where('lietotajs_id', Auth::user()->id)->get();
+        return view('reservations', compact('reservations'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -73,6 +78,10 @@ class ReservationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $reservation = Rezervacija::where('id', $id)->where('lietotajs_id', Auth::user()->id)->firstOrFail();
+        $reservation->masina->statuss = 'pieejama';
+        $reservation->masina->save(); 
+        $reservation->delete();
+        return redirect()->route('welcome')->with('success', "Reservation canceled successfully!");
     }
 }

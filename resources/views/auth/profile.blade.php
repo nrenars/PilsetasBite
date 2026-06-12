@@ -7,7 +7,7 @@
         <p>Phone number: {{ $user->telefons }}</p>
         <p>Account status: {{$user->statuss}}</p>
         <p>Account created at: {{$user->created_at->format('d.m.Y')}}</p>
-        <a href=""></a>
+        <a href="">Edit</a>
         <form action="{{ route('auth.destroy') }}" method="POST">
             @csrf
             @method('DELETE')

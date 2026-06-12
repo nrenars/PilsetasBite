@@ -19,5 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile',[AuthController::class, 'showProfile'])->name('showProfile');
     Route::delete('/profile', [AuthController::class, 'destroy'])->name('auth.destroy');
-    Route::post('/reservations/{masina}', [ReservationController::class, 'store']) ->name('reservations.store');
+    Route::post('/reservation/{masina}', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservations', [ReservationController::class, 'show'])->name('reservations.show');
+    Route::delete('/reservations{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 });

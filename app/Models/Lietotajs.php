@@ -48,5 +48,4 @@ class Lietotajs extends Authenticatable
     {
         return $this->paroles_hash;
     }
-
 }

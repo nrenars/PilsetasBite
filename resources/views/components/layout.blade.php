@@ -33,6 +33,11 @@
                         <li>
                             <a href="{{ route('showProfile')}}">Profile</a>
                         </li>
+                        @if(Auth::user()->rezervacija()->exists())
+                        <li>
+                            <a href="{{ route('reservations.show')}}">Reservations</a>
+                        </li>
+                        @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
