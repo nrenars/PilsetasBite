@@ -1,33 +1,29 @@
 <x-layout>
+
     <div id="container">
-        <div id="filter-container">
-            {{-- Search bar --}}
-            <div id="search">
-                <div>
-                    <div>
-                        <input type="text" name="search" id="search-input" placeholder="">
-                    </div>
-                </div>
-            </div>
-        
+        <div id="filter-container">    
             {{-- Filters --}}
-            <div id="filters">
-        
-                <div id="year-range-container">
-                    {{-- <label>Year range</label>  --}}
-                    <div id="year-range">
-                        <input type="number" name="year-from" id="year-from" placeholder="From">
-                        -
-                        <input type="number" name="year-to" id="year-to" placeholder="To">
+            <form action="">
+                <div id="filters">
+            
+                    <div id="year-range-container">
+                        {{-- <label>Year range</label>  --}}
+                        <div id="year-range">
+                            <input type="number" name="year-from" id="year-from" placeholder="Year From">
+                            -
+                            <input type="number" name="year-to" id="year-to" placeholder="Year To">
+                        </div>
                     </div>
+            
+                    {{-- Dropdowni, lai izveletos masinas pec markas, transmisijas, vietu skaita utt --}}
+                    <select name="" id="model-dropdown"> <option value="">Models</option></select>
+                    <select name="" id="fuel-dropdown"><option value="">Fuel</option></select>
+                    <select name="" id="transmission-dropdown"><option value="">Transmission</option></select>
+            
                 </div>
-        
-                {{-- Dropdowni, lai izveletos masinas pec markas, transmisijas, vietu skaita utt --}}
-                <div id="dropdown-container">
-                
-                </div>
-        
-            </div>
+                <button id="filter-btn" type="submit">Filter</button>
+                <p id="filter-error"></p>
+            </form>
     
         </div>
     

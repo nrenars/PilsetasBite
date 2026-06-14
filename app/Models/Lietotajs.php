@@ -21,6 +21,7 @@ class Lietotajs extends Authenticatable
         'loma',
     ];
     protected $primaryKey = 'id';
+    protected $authIdentifierName = 'id';
     protected $authPasswordName = 'paroles_hash';
     protected $rememberTokenName = 'remember_token';
 
@@ -42,7 +43,7 @@ class Lietotajs extends Authenticatable
     }
     public function getAuthIdentifierName()
     {
-        return 'epasts';
+        return 'id';
     }
     public function getAuthPassword()
     {

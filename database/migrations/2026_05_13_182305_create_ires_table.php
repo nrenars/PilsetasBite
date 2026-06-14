@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->dateTime('sakuma_laiks');
-            $table->dateTime('beigu_laiks');
+            $table->dateTime('beigu_laiks')->nullable();
             $table->decimal('nobrauktais_attalums', 9, 3);
             $table->string('statuss', 15);
             $table->decimal('cena', 10, 2);

@@ -57,6 +57,7 @@
         @endif
         {{ $slot }}
     </main>
+    
     @vite(['resources/js/map.js'])
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}" defer></script>
 </body>

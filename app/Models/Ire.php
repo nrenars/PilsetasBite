@@ -12,6 +12,13 @@ class Ire extends Model
         'nobrauktais_attalums',
         'statuss',
         'cena',
+        'lietotajs_id',
+        'masina_id',
+        'lokacija_id'
+    ];
+    protected $casts = [
+        'sakuma_laiks' => 'datetime',
+        'beigu_laiks' => 'datetime',
     ];
     public function lietotajs()
     {

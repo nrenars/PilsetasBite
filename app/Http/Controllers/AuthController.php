@@ -69,10 +69,37 @@ class AuthController extends Controller
         $user = Auth::user();
         return view('auth.profile', compact('user'));
     }
+    public function edit(Request $request){
+        $lietotajs = Auth::user();
+        return view('auth.edit', compact('lietotajs'));
+    }
 
     public function update(Request $request){
+        $user = Auth::user();
         
+        $request->validate([
+            'vards'    => 'required|string|max:255',
+            'uzvards'  => 'required|string|max:255',
+            'epasts'   => 'required|email|unique:lietotajs,epasts,'. $user->id,
+            'telefons' => 'required|regex:/^\+?[0-9]{8,15}$/|unique:lietotajs,telefons,' . $user->id,
+            'parole'   => 'nullable|min:8|confirmed',
+        ]);
+
+        $user->vards       = $request->vards;
+        $user->uzvards     = $request->uzvards;
+        $user->pilns_vards = $request->vards . ' ' . $request->uzvards;
+        $user->epasts      = $request->epasts;
+        $user->telefons    = $request->telefons;
+
+        if ($request->filled('parole')) {
+            $user->paroles_hash = Hash::make($request->parole);
+        }
+
+        $user->save();
+
+        return redirect()->route('showProfile')->with('success', 'Profile updated successfully!');
     }
+
     public function destroy(Request $request)
     {
         $user = Auth::user();

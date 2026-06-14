@@ -11,7 +11,11 @@ class Maksajums extends Model
         'summa_ar_pvn',
         'maksajuma_veids',
         'maksajuma_statuss',
-        'maksajuma_datums'
+        'maksajuma_datums',
+        'ire_id'
+    ];
+    protected $casts = [
+        'maksajuma_datums' => 'datetime',
     ];
     public function ire()
     {
