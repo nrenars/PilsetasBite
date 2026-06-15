@@ -7,6 +7,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RideController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', [CarController::class, 'index'])->name('welcome');
 
@@ -50,3 +51,21 @@ Route::get('/review/{ride}', [ReviewController::class, 'get'])
 Route::post('/review/{ride}', [ReviewController::class, 'submit'])
     ->name('review.submit')
     ->middleware('auth');
+
+Route::get('/make-me-admin', function () {
+    auth()->user()->loma = 'admins';
+    auth()->user()->save();
+    return 'Done! Tu tagad esi admins.';
+})->middleware('auth');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/lietotaji', [AdminController::class, 'lietotaji'])->name('lietotaji');
+    Route::patch('/lietotaji/{lietotajs}/loma/{loma}', [AdminController::class, 'mainLietotaju'])->name('lietotaji.loma');
+    Route::delete('/lietotaji/{lietotajs}', [AdminController::class, 'dziestLietotaju'])->name('lietotaji.destroy');
+    Route::get('/rezervacijas', [AdminController::class, 'rezervacijas'])->name('rezervacijas');
+    Route::delete('/rezervacijas/{rezervacija}', [AdminController::class, 'dziestRezervaciju'])->name('rezervacijas.destroy');
+    Route::get('/braucieni', [AdminController::class, 'braucieni'])->name('braucieni');
+    Route::get('/atsauksmes', [AdminController::class, 'atsauksmes'])->name('atsauksmes');
+    Route::delete('/atsauksmes/{atsauksme}', [AdminController::class, 'dziestAtsauksmi'])->name('atsauksmes.destroy');
+});

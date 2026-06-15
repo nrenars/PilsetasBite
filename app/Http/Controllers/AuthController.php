@@ -25,15 +25,18 @@ class AuthController extends Controller
             'parole'              => 'required|min:8|confirmed',
         ]);
         $user = Lietotajs::create([
-            'vards'        => $validated['vards'],
-            'uzvards'      => $validated['uzvards'],
-            'pilns_vards'  => $validated['vards'] . ' ' . $validated['uzvards'],
-            'epasts'       => $validated['epasts'],
-            'telefons'     => $validated['telefons'],
-            'paroles_hash' => Hash::make($validated['parole']),
-            'loma'         => 'lietotajs',
-            'statuss'      => 'aktīvs',
-            'izveidots'    => now(),
+            'vards'                       => $validated['vards'],
+            'uzvards'                     => $validated['uzvards'],
+            'pilns_vards'                 => $validated['vards'] . ' ' . $validated['uzvards'],
+            'epasts'                      => $validated['epasts'],
+            'telefons'                    => $validated['telefons'],
+            'paroles_hash'                => Hash::make($validated['parole']),
+            'loma'                        => 'lietotajs',
+            'statuss'                     => 'aktīvs',
+            'izveidots'                   => now(),
+            'vaditaja_apliecibas_nr'      => null,
+            'vaditaja_apliecibas_statuss' => null,
+            'vaditaja_apliecibas_termins' => null,
         ]);
 
         Auth::login($user);
