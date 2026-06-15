@@ -154,20 +154,43 @@ window.initMap = function () {
             const rideUrl = `/ride/${masina.id}`;
 
             const actionHtml = `
-                <form id="reservation-form-${masina.id}" action="${reservationUrl}" method="POST">
-                    <input type="hidden" name="_token" value="${csrfToken}">
-                    <button type="submit">Make a Reservation</button>
-                </form>
-                <form id="ride-form-${masina.id}" action="${rideUrl}" method="POST">
-                    <input type="hidden" name="_token" value="${csrfToken}">
-                    <button type="submit">Begin Ride</button>
-                </form>`;
+                <div class="car-card-actions">
+                    <form id="reservation-form-${masina.id}" action="${reservationUrl}" method="POST">
+                        <input type="hidden" name="_token" value="${csrfToken}">
+                        <button class="btn btn-reservation" type="submit">Make a Reservation</button>
+                    </form>
+
+                    <form id="ride-form-${masina.id}" action="${rideUrl}" method="POST">
+                        <input type="hidden" name="_token" value="${csrfToken}">
+                        <button class="btn btn-ride" type="submit">Begin Ride</button>
+                    </form>
+                </div>`;
 
             carCard.innerHTML = `
-                <h2>${masina.modelis.marka} ${masina.modelis.modelis} | ${masina.statuss}</h2>
-                ${energyHtml}
-                <p>Gads: ${masina.gads}</p>
-                <p>Vietu skaits: ${masina.modelis.vietu_skaits}</p>
+                <div class="car-card-header">
+                    <div>
+                        <h2>${masina.modelis.marka} ${masina.modelis.modelis}</h2>
+                        <span class="car-status">${masina.statuss}</span>
+                    </div>
+                </div>
+
+                <div class="car-card-body">
+                    <div class="car-info-row">
+                        <span>Gads</span>
+                        <strong>${masina.gads}</strong>
+                    </div>
+
+                    <div class="car-info-row">
+                        <span>Vietu skaits</span>
+                        <strong>${masina.modelis.vietu_skaits}</strong>
+                    </div>
+
+                    <div class="car-info-row">
+                        <span>Degviela / Baterija</span>
+                        <strong>${energyHtml.replace('<p>', '').replace('</p>', '')}</strong>
+                    </div>
+                </div>
+
                 ${actionHtml}
             `;
 
@@ -185,9 +208,9 @@ window.initMap = function () {
                 if (response.ok) {
                     masina.statuss = 'rezervēta';
                     marker.setMap(null);
-                    form.innerHTML = `<p style="color: green;">Reservation successful!</p>`;
+                    form.innerHTML = `<p class="success-message">Reservation successful!</p>`;
                 } else {
-                    form.innerHTML = `<p style="color: red;">Error!</p>`;
+                    form.innerHTML = `<p class="error-message">Error!</p>`;
                 }
             });
         });
