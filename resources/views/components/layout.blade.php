@@ -38,6 +38,11 @@
                             <a href="{{ route('reservations.show')}}">Reservations</a>
                         </li>
                         @endif
+                        @if(Auth::user()->loma === 'admins')
+                        <li>
+                            <a href="{{ route('admin.index') }}">Admin panelis</a>
+                        </li>
+                        @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
