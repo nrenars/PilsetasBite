@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Lietotajs;
+use App\Models\Ire;
 
 class AuthController extends Controller
 {
@@ -66,8 +67,9 @@ class AuthController extends Controller
     }
 
     public function showProfile(Request $request){
-        $user = Auth::user();
-        return view('auth.profile', compact('user'));
+        $user = Auth::user(); 
+        $rides = Auth::user()->ire()->with('maksajums')->latest()->get();
+        return view('auth.profile', compact('user', 'rides'));
     }
     public function edit(Request $request){
         $lietotajs = Auth::user();

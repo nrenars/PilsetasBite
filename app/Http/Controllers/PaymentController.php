@@ -77,7 +77,7 @@ class PaymentController extends Controller
             ]);
         }
 
-        return redirect('/')->with('success', 'Maksājums veiksmīgi pabeigts!');
+        return redirect()->route('review.get', $ride->id)->with('success', 'Maksājums veiksmīgi pabeigts!');
     }
 
     // 3. Ja lietotājs atceļ apmaksu

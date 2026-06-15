@@ -9,7 +9,9 @@ class Atsauksmes extends Model
     protected $fillable = [
         'vertejums',
         'komentars',
-        'izveidots'
+        'lietotajs_id',
+        'ire_id',
+        'izveidots',
     ];
     public function lietotajs()
     {

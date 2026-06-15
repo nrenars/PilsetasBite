@@ -63,7 +63,7 @@
 
             // Aptuvenā cena reāllaikā
             const mins = elapsedSeconds / 60;
-            const price = (mins * 10.10) + (totalDistance * 0.20);
+            const price = (mins * 0.50) + (totalDistance * 0.20);
             document.getElementById('price').textContent = price.toFixed(2);
         }, 1000);
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RideController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/', [CarController::class, 'index'])->name('welcome');
 
@@ -40,4 +41,12 @@ Route::get('/ride/{id}/payment-success', [PaymentController::class, 'success'])
 
 Route::get('/ride/{id}/payment-cancel', [PaymentController::class, 'cancel'])
     ->name('ride.payment.cancel')
+    ->middleware('auth');
+
+Route::get('/review/{ride}', [ReviewController::class, 'get'])
+    ->name('review.get')
+    ->middleware('auth');
+
+Route::post('/review/{ride}', [ReviewController::class, 'submit'])
+    ->name('review.submit')
     ->middleware('auth');
