@@ -1,6 +1,6 @@
 <x-layout>
-    @foreach ($reservations as $reservation)    
-        <h1>Your Reservations</h1>
+    @foreach ($reservations as $reservation)
+        <h1>{{ __('messages.your_reservations') }}</h1>
             <div class="reservation">
                 {{$reservation->masina->modelis->marka}} {{$reservation->masina->modelis->modelis}}
                 {{$reservation->created_at}}
@@ -8,12 +8,12 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit">
-                        Cancel Reservation
+                        {{ __('messages.cancel_reservation') }}
                     </button>
                 </form>
                 <form action="{{ route('ride.begin', $reservation->masina_id) }}" method="POST">
                     @csrf
-                    <button type="submit">Begin Ride</button>
+                    <button type="submit">{{ __('messages.begin_ride') }}</button>
                 </form>
             </div>
     @endforeach
