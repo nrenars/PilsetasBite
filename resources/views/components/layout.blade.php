@@ -6,17 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PilsetasBite</title>
     @vite(['resources/css/app.css'])
+    @vite(['resources/js/script.js'])
     <script src="https://kit.fontawesome.com/542c50e191.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 </head>
 <body>
     <nav>
-        <p><a href="/">PilsetasBite</a></p>
+        <a href="/"><img height="100px" src="{{ asset('images/logo.png') }}" alt="PilsetasBite logo"></a>
         <div id="dropdown">
             <i id="profile-icon" class="fa-regular fa-circle-user"></i>
-            {{-- <i class="fa-solid fa-circle-user"></i> --}}
-            {{-- <i class="fa-regular fa-user"></i> --}}
-            {{-- <i class="fa-solid fa-user"></i> --}}
+            {{-- <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-regular fa-user"></i>
+            <i class="fa-solid fa-user"></i>  --}}
             <div id="dropdown-content">
                 @guest
                 <ul>
@@ -62,7 +64,7 @@
         @endif
         {{ $slot }}
     </main>
-    
+
     @vite(['resources/js/map.js'])
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}" defer></script>
 </body>
