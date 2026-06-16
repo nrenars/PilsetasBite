@@ -11,6 +11,13 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [CarController::class, 'index'])->name('welcome');
 
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'lv'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);

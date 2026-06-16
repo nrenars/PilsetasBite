@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,11 @@
 <body>
     <nav>
         <a href="/"><img height="100px" src="{{ asset('images/logo.png') }}" alt="PilsetasBite logo"></a>
+        <div id="lang-switcher">
+            <a href="{{ route('lang.switch', 'en') }}" @class(['active-lang' => app()->getLocale() === 'en'])>EN</a>
+            |
+            <a href="{{ route('lang.switch', 'lv') }}" @class(['active-lang' => app()->getLocale() === 'lv'])>LV</a>
+        </div>
         <div id="dropdown">
             <i id="profile-icon" class="fa-regular fa-circle-user"></i>
             {{-- <i class="fa-solid fa-circle-user"></i>
@@ -23,32 +28,32 @@
                 @guest
                 <ul>
                     <li>
-                        <a href="{{ route('register') }}">Register</a>     
+                        <a href="{{ route('register') }}">{{ __('messages.register') }}</a>
                     </li>
                     <li>
-                        <a href="{{ route('login') }}">Login</a>     
+                        <a href="{{ route('login') }}">{{ __('messages.login') }}</a>
                     </li>
                 </ul>
                 @endguest
                 @auth
                     <ul>
                         <li>
-                            <a href="{{ route('showProfile')}}">Profile</a>
+                            <a href="{{ route('showProfile')}}">{{ __('messages.profile') }}</a>
                         </li>
                         @if(Auth::user()->rezervacija()->exists())
                         <li>
-                            <a href="{{ route('reservations.show')}}">Reservations</a>
+                            <a href="{{ route('reservations.show')}}">{{ __('messages.reservations') }}</a>
                         </li>
                         @endif
                         @if(Auth::user()->loma === 'admins')
                         <li>
-                            <a href="{{ route('admin.index') }}">Admin panelis</a>
+                            <a href="{{ route('admin.index') }}">{{ __('messages.admin_panel') }}</a>
                         </li>
                         @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit">Logout</button>
+                                <button type="submit">{{ __('messages.logout') }}</button>
                             </form>
                         </li>
                     </ul>

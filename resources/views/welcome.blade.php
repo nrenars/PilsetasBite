@@ -9,24 +9,22 @@
                     <div id="year-range-container">
                         {{-- <label>Year range</label>  --}}
                         <div id="year-range">
-                            <input type="number" name="year-from" id="year-from" placeholder="Year From">
+                            <input type="number" name="year-from" id="year-from" placeholder="{{ __('messages.year_from') }}">
                             -
-                            <input type="number" name="year-to" id="year-to" placeholder="Year To">
+                            <input type="number" name="year-to" id="year-to" placeholder="{{ __('messages.year_to') }}">
                         </div>
                     </div>
-            
+
                     {{-- Dropdowni, lai izveletos masinas pec markas, transmisijas, vietu skaita utt --}}
-                    <select name="" id="model-dropdown"> <option value="">Models</option></select>
-                    <select name="" id="fuel-dropdown"><option value="">Fuel</option></select>
-                    <select name="" id="transmission-dropdown"><option value="">Transmission</option></select>
-            
+                    <select name="" id="model-dropdown"> <option value="">{{ __('messages.models') }}</option></select>
+                    <select name="" id="fuel-dropdown"><option value="">{{ __('messages.fuel') }}</option></select>
+                    <select name="" id="transmission-dropdown"><option value="">{{ __('messages.transmission_filter') }}</option></select>
+
                 </div>
-                <button id="filter-btn" type="submit">Filter</button>
+                <button id="filter-btn" type="submit">{{ __('messages.filter') }}</button>
                 <p id="filter-error"></p>
             </form>
-    
         </div>
-    
         <div id="map-and-card">
             <div id="map"></div> 
             <script>

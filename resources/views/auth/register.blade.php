@@ -2,9 +2,9 @@
     <div class="auth-page">
         <div class="auth-card">
             <div class="auth-header">
-                <span class="page-badge">Create account</span>
-                <h1>Register</h1>
-                <p>Create your account to reserve and use cars.</p>
+                <span class="page-badge">{{ __('messages.create_account') }}</span>
+                <h1>{{ __('messages.register_title') }}</h1>
+                <p>{{ __('messages.register_subtitle') }}</p>
             </div>
 
             <form action="{{ route('register') }}" method="POST" class="auth-form">
@@ -12,14 +12,14 @@
 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="vards">First Name</label>
+                        <label for="vards">{{ __('messages.first_name') }}</label>
                         <input
                             type="text"
                             id="vards"
                             name="vards"
                             required
                             value="{{ old('vards') }}"
-                            placeholder="Enter first name"
+                            placeholder="{{ __('messages.enter_first_name') }}"
                         >
                         @error('vards')
                             <small class="form-error">{{ $message }}</small>
@@ -27,14 +27,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="uzvards">Last Name</label>
+                        <label for="uzvards">{{ __('messages.last_name') }}</label>
                         <input
                             type="text"
                             id="uzvards"
                             name="uzvards"
                             required
                             value="{{ old('uzvards') }}"
-                            placeholder="Enter last name"
+                            placeholder="{{ __('messages.enter_last_name') }}"
                         >
                         @error('uzvards')
                             <small class="form-error">{{ $message }}</small>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="epasts">Email address</label>
+                    <label for="epasts">{{ __('messages.email') }}</label>
                     <input
                         type="email"
                         id="epasts"
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="telefons">Phone</label>
+                    <label for="telefons">{{ __('messages.phone') }}</label>
                     <input
                         type="tel"
                         id="telefons"
@@ -74,13 +74,13 @@
 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="parole">Password</label>
+                        <label for="parole">{{ __('messages.password') }}</label>
                         <input
                             type="password"
                             id="parole"
                             name="parole"
                             required
-                            placeholder="Password"
+                            placeholder="{{ __('messages.enter_password') }}"
                         >
                         @error('parole')
                             <small class="form-error">{{ $message }}</small>
@@ -88,13 +88,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="parole_confirmation">Confirm Password</label>
+                        <label for="parole_confirmation">{{ __('messages.confirm_password') }}</label>
                         <input
                             type="password"
                             id="parole_confirmation"
                             name="parole_confirmation"
                             required
-                            placeholder="Confirm password"
+                            placeholder="{{ __('messages.confirm_password_ph') }}"
                         >
                         @error('parole_confirmation')
                             <small class="form-error">{{ $message }}</small>
@@ -103,7 +103,7 @@
                 </div>
 
                 <button type="submit" class="auth-submit">
-                    Register
+                    {{ __('messages.register') }}
                 </button>
             </form>
         </div>

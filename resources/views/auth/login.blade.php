@@ -2,16 +2,16 @@
     <div class="auth-page">
         <div class="auth-card auth-card-small">
             <div class="auth-header">
-                <span class="page-badge">Welcome back</span>
-                <h1>Login</h1>
-                <p>Log in to reserve cars and manage your rides.</p>
+                <span class="page-badge">{{ __('messages.welcome_back') }}</span>
+                <h1>{{ __('messages.login_title') }}</h1>
+                <p>{{ __('messages.login_subtitle') }}</p>
             </div>
 
             <form action="{{ route('login') }}" method="POST" class="auth-form">
                 @csrf
 
                 <div class="form-group">
-                    <label for="epasts">Email address</label>
+                    <label for="epasts">{{ __('messages.email') }}</label>
                     <input
                         type="email"
                         id="epasts"
@@ -26,13 +26,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="parole">Password</label>
+                    <label for="parole">{{ __('messages.password') }}</label>
                     <input
                         type="password"
                         id="parole"
                         name="parole"
                         required
-                        placeholder="Enter your password"
+                        placeholder="{{ __('messages.enter_your_password') }}"
                     >
                     @error('parole')
                         <small class="form-error">{{ $message }}</small>
@@ -40,7 +40,7 @@
                 </div>
 
                 <button type="submit" class="auth-submit">
-                    Login
+                    {{ __('messages.login_btn') }}
                 </button>
             </form>
         </div>

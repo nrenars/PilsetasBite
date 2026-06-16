@@ -2,9 +2,9 @@
     <div class="reservations-page">
 
         <div class="reservations-header">
-            <span class="page-badge">Reservation</span>
-            <h1>Your Reservation</h1>
-            <p>Here you can view your active reservation, cancel it, or begin your ride.</p>
+            <span class="page-badge">{{ __('messages.reservation') }}</span>
+            <h1>{{ __('messages.your_reservation') }}</h1>
+            <p>{{ __('messages.your_reservation_desc') }}</p>
         </div>
 
         @forelse ($reservations as $reservation)
@@ -18,7 +18,7 @@
                         </h2>
 
                         <span class="reservation-status">
-                            Active Reservation
+                            {{ __('messages.active_reservation') }}
                         </span>
                     </div>
 
@@ -29,29 +29,29 @@
 
                 <div class="reservation-main-info">
                     <div class="registration-box">
-                        <span>Registration No.</span>
+                        <span>{{ __('messages.registration_no') }}</span>
                         <strong>{{ $reservation->masina->registracijas_nr }}</strong>
                     </div>
 
                     <div class="reserved-time">
-                        <span>Reserved at</span>
+                        <span>{{ __('messages.reserved_at') }}</span>
                         <strong>{{ $reservation->created_at->format('d.m.Y H:i') }}</strong>
                     </div>
                 </div>
 
                 <div class="reservation-details">
                     <div class="detail-item">
-                        <span>Transmission</span>
+                        <span>{{ __('messages.transmission') }}</span>
                         <strong>{{ $reservation->masina->modelis->transmisija }}</strong>
                     </div>
 
                     <div class="detail-item">
-                        <span>Fuel type</span>
+                        <span>{{ __('messages.fuel_type') }}</span>
                         <strong>{{ $reservation->masina->modelis->degvielas_tips }}</strong>
                     </div>
 
                     <div class="detail-item">
-                        <span>Seats</span>
+                        <span>{{ __('messages.seats') }}</span>
                         <strong>{{ $reservation->masina->modelis->vietu_skaits }}</strong>
                     </div>
                 </div>
@@ -61,14 +61,14 @@
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-cancel" type="submit">
-                            Cancel Reservation
+                            {{ __('messages.cancel_reservation') }}
                         </button>
                     </form>
 
                     <form action="{{ route('ride.begin', $reservation->masina_id) }}" method="POST">
                         @csrf
                         <button class="btn btn-begin" type="submit">
-                            Begin Ride
+                            {{ __('messages.begin_ride') }}
                         </button>
                     </form>
                 </div>
@@ -77,9 +77,9 @@
         @empty
             <div class="empty-reservation-card">
                 <div class="empty-icon">🚘</div>
-                <h2>No active reservation</h2>
-                <p>You currently do not have an active car reservation.</p>
-                <a href="/" class="empty-link">Find a car</a>
+                <h2>{{ __('messages.no_active_reservation') }}</h2>
+                <p>{{ __('messages.no_active_reservation_desc') }}</p>
+                <a href="/" class="empty-link">{{ __('messages.find_a_car') }}</a>
             </div>
         @endforelse
 
