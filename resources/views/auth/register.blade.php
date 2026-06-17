@@ -7,7 +7,7 @@
                 <p>{{ __('messages.register_subtitle') }}</p>
             </div>
 
-            <form action="{{ route('register') }}" method="POST" class="auth-form">
+            <form action="{{ route('register') }}" method="POST" class="auth-form" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-grid">
@@ -100,6 +100,51 @@
                             <small class="form-error">{{ $message }}</small>
                         @enderror
                     </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vaditaja_apliecibas_nr">Driver license number</label>
+                        <input
+                            type="text"
+                            id="vaditaja_apliecibas_nr"
+                            name="vaditaja_apliecibas_nr"
+                            required
+                            value="{{ old('vaditaja_apliecibas_nr') }}"
+                            placeholder="Enter license number"
+                        >
+                        @error('vaditaja_apliecibas_nr')
+                            <small class="form-error">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vaditaja_apliecibas_termins">License expiry date</label>
+                        <input
+                            type="date"
+                            id="vaditaja_apliecibas_termins"
+                            name="vaditaja_apliecibas_termins"
+                            required
+                            value="{{ old('vaditaja_apliecibas_termins') }}"
+                        >
+                        @error('vaditaja_apliecibas_termins')
+                            <small class="form-error">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vaditaja_apliecibas_attels">Driver license image</label>
+                    <input
+                        type="file"
+                        id="vaditaja_apliecibas_attels"
+                        name="vaditaja_apliecibas_attels"
+                        accept="image/*"
+                        required
+                    >
+                    @error('vaditaja_apliecibas_attels')
+                        <small class="form-error">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <button type="submit" class="auth-submit">

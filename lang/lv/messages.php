@@ -33,7 +33,6 @@ return [
     'reservation'           => 'Rezervācija',
     'your_reservation'      => 'Tava rezervācija',
     'your_reservation_desc' => 'Šeit tu vari apskatīt savu aktīvo rezervāciju, atcelt to vai sākt braucienu.',
-    'active_reservation'    => 'Aktīva rezervācija',
     'registration_no'       => 'Reģistrācijas Nr.',
     'reserved_at'           => 'Rezervēts',
     'transmission'          => 'Transmisija',
@@ -41,8 +40,6 @@ return [
     'seats'                 => 'Vietas',
     'cancel_reservation'    => 'Atcelt rezervāciju',
     'begin_ride'            => 'Sākt braucienu',
-    'no_active_reservation' => 'Nav aktīvas rezervācijas',
-    'no_active_reservation_desc' => 'Tev pašlaik nav aktīvas mašīnas rezervācijas.',
     'find_a_car'            => 'Atrast mašīnu',
 
     // Ride

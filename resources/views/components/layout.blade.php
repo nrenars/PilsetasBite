@@ -36,21 +36,24 @@
                 </ul>
                 @endguest
                 @auth
-                    <ul>
+                    <ul id="auth-dropdown-menu">
                         <li>
                             <a href="{{ route('showProfile')}}">{{ __('messages.profile') }}</a>
                         </li>
+
                         @if(Auth::user()->rezervacija()->exists())
-                        <li>
-                            <a href="{{ route('reservations.show')}}">{{ __('messages.reservations') }}</a>
-                        </li>
+                            <li id="reservations-menu-item">
+                                <a href="{{ route('reservations.show')}}">{{ __('messages.reservations') }}</a>
+                            </li>
                         @endif
+
                         @if(Auth::user()->loma === 'admins')
-                        <li>
-                            <a href="{{ route('admin.index') }}">{{ __('messages.admin_panel') }}</a>
-                        </li>
+                            <li>
+                                <a href="{{ route('admin.index') }}">{{ __('messages.admin_panel') }}</a>
+                            </li>
                         @endif
-                        <li>
+
+                        <li id="logout-menu-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit">{{ __('messages.logout') }}</button>
@@ -70,7 +73,31 @@
         {{ $slot }}
     </main>
 
+    @auth
+        <script>
+            window.reservationsUrl = "{{ route('reservations.show') }}";
+            window.reservationsText = "{{ __('messages.reservations') }}";
+        </script>
+    @endauth
+
     @vite(['resources/js/map.js'])
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}" defer></script>
+    <script>
+        window.initGoogleMaps = function () {
+            if (document.getElementById('ride-map') && typeof window.initRideMap === 'function') {
+                window.initRideMap();
+                return;
+            }
+
+            if (document.getElementById('map') && typeof window.initMap === 'function') {
+                window.initMap();
+            }
+        };
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&map_ids={{ config('services.google_maps.map_id') }}&callback=initGoogleMaps"
+        async
+        defer>
+    </script>
 </body>
 </html>

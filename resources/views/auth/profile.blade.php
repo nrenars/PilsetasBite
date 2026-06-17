@@ -2,7 +2,6 @@
     <div class="profile-page">
 
         <div class="profile-header">
-            <span class="page-badge">Account</span>
             <h1>Profile</h1>
             <p>Manage your personal information and view your ride history.</p>
         </div>
@@ -18,7 +17,6 @@
 
                     <div>
                         <h2>{{ $user->vards }} {{ $user->uzvards }}</h2>
-                        <span class="profile-status">{{ $user->statuss }}</span>
                     </div>
                 </div>
 

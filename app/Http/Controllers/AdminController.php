@@ -17,6 +17,7 @@ class AdminController extends Controller
             'masinas'     => Masina::count(),
             'rezervacijas' => Rezervacija::count(),
             'braucieni'   => Ire::count(),
+            'verifikacijas' => Lietotajs::where('vaditaja_apliecibas_statuss', 'gaida')->count(),
         ];
 
         return view('admin.index', compact('stats'));
@@ -73,5 +74,25 @@ class AdminController extends Controller
     {
         $atsauksme->delete();
         return back()->with('success', 'Atsauksme dzēsta.');
+    }
+
+    public function verifikacija()
+    {
+        $lietotaji = Lietotajs::where('vaditaja_apliecibas_statuss', 'gaida')->latest()->paginate(20);
+        return view('admin.verifikacija', compact('lietotaji'));
+    }
+
+    public function apstiprinatApliecibu(Lietotajs $lietotajs)
+    {
+        $lietotajs->vaditaja_apliecibas_statuss = 'apstiprinata';
+        $lietotajs->save();
+        return back()->with('success', 'Vadītāja apliecība apstiprināta.');
+    }
+
+    public function noraiditApliecibu(Lietotajs $lietotajs)
+    {
+        $lietotajs->vaditaja_apliecibas_statuss = 'noraidita';
+        $lietotajs->save();
+        return back()->with('success', 'Vadītāja apliecība noraidīta.');
     }
 }

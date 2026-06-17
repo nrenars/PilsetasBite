@@ -33,7 +33,6 @@ return [
     'reservation'           => 'Reservation',
     'your_reservation'      => 'Your Reservation',
     'your_reservation_desc' => 'Here you can view your active reservation, cancel it, or begin your ride.',
-    'active_reservation'    => 'Active Reservation',
     'registration_no'       => 'Registration No.',
     'reserved_at'           => 'Reserved at',
     'transmission'          => 'Transmission',
@@ -41,8 +40,6 @@ return [
     'seats'                 => 'Seats',
     'cancel_reservation'    => 'Cancel Reservation',
     'begin_ride'            => 'Begin Ride',
-    'no_active_reservation' => 'No active reservation',
-    'no_active_reservation_desc' => 'You currently do not have an active car reservation.',
     'find_a_car'            => 'Find a car',
 
     // Ride

@@ -75,4 +75,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/braucieni', [AdminController::class, 'braucieni'])->name('braucieni');
     Route::get('/atsauksmes', [AdminController::class, 'atsauksmes'])->name('atsauksmes');
     Route::delete('/atsauksmes/{atsauksme}', [AdminController::class, 'dziestAtsauksmi'])->name('atsauksmes.destroy');
+    Route::get('/verifikacija', [AdminController::class, 'verifikacija'])->name('verifikacija');
+    Route::put('/verifikacija/{lietotajs}/apstiprinat', [AdminController::class, 'apstiprinatApliecibu'])->name('verifikacija.apstiprinat');
+    Route::put('/verifikacija/{lietotajs}/noraidit', [AdminController::class, 'noraiditApliecibu'])->name('verifikacija.noraidit');
 });

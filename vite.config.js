@@ -1,27 +1,37 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
+            input: [
+                'resources/css/app.css',
+                'resources/js/script.js',
+                'resources/js/map.js',
             ],
+            refresh: true,
         }),
-        tailwindcss(),
     ],
+
     server: {
         host: '0.0.0.0',
         port: 5175,
+        strictPort: true,
+
+        origin: 'https://pilsetasbite.ddev.site:5176',
+
+        cors: {
+            origin: [
+                'https://pilsetasbite.ddev.site',
+                'https://pilsetasbite.ddev.site:5176',
+            ],
+            credentials: true,
+        },
+
         hmr: {
+            protocol: 'wss',
             host: 'pilsetasbite.ddev.site',
-            port: 5175,
+            clientPort: 5176,
         },
     },
 });

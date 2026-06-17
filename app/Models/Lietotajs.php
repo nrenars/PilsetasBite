@@ -16,6 +16,7 @@ class Lietotajs extends Authenticatable
         'vaditaja_apliecibas_nr',
         'vaditaja_apliecibas_statuss',
         'vaditaja_apliecibas_termins',
+        'vaditaja_apliecibas_attels',
         'statuss',
         'izveidots',
         'loma',

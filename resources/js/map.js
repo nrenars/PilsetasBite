@@ -1,3 +1,30 @@
+function addReservationsToDropdown() {
+    const menu = document.getElementById('auth-dropdown-menu');
+
+    if (!menu) return;
+
+    const alreadyExists = document.getElementById('reservations-menu-item');
+
+    if (alreadyExists) return;
+
+    const li = document.createElement('li');
+    li.id = 'reservations-menu-item';
+
+    const a = document.createElement('a');
+    a.href = window.reservationsUrl;
+    a.textContent = window.reservationsText || 'Reservations';
+
+    li.appendChild(a);
+
+    const logoutItem = document.getElementById('logout-menu-item');
+
+    if (logoutItem) {
+        menu.insertBefore(li, logoutItem);
+    } else {
+        menu.appendChild(li);
+    }
+}
+
 let map;
 let markers = [];
 let fuels = [];
@@ -208,6 +235,9 @@ window.initMap = function () {
                 if (response.ok) {
                     masina.statuss = 'rezervēta';
                     marker.setMap(null);
+
+                    addReservationsToDropdown();
+
                     form.innerHTML = `<p class="success-message">Reservation successful!</p>`;
                 } else {
                     form.innerHTML = `<p class="error-message">Error!</p>`;

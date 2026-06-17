@@ -2,7 +2,6 @@
     <div class="reservations-page">
 
         <div class="reservations-header">
-            <span class="page-badge">{{ __('messages.reservation') }}</span>
             <h1>{{ __('messages.your_reservation') }}</h1>
             <p>{{ __('messages.your_reservation_desc') }}</p>
         </div>
@@ -16,10 +15,6 @@
                             {{ $reservation->masina->modelis->marka }}
                             {{ $reservation->masina->modelis->modelis }}
                         </h2>
-
-                        <span class="reservation-status">
-                            {{ __('messages.active_reservation') }}
-                        </span>
                     </div>
 
                     <div class="reservation-year">

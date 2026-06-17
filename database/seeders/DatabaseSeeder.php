@@ -22,104 +22,104 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        Masina::create([
-            'modelis_id' => 2,
-            'registracijas_nr' => 'AB1234',
-            'gads' => 2022,
-            'degvielas_limenis' => null,
-            'baterijas_limenis' => 85,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 4,
-            'tehniskas_apskates_termins' => '2026-08-15'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 2,
+        //     'registracijas_nr' => 'AB1234',
+        //     'gads' => 2022,
+        //     'degvielas_limenis' => null,
+        //     'baterijas_limenis' => 85,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 4,
+        //     'tehniskas_apskates_termins' => '2026-08-15'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 1,
-            'registracijas_nr' => 'CD5678',
-            'gads' => 2021,
-            'degvielas_limenis' => 70,
-            'baterijas_limenis' => null,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 5,
-            'tehniskas_apskates_termins' => '2026-11-20'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 1,
+        //     'registracijas_nr' => 'CD5678',
+        //     'gads' => 2021,
+        //     'degvielas_limenis' => 70,
+        //     'baterijas_limenis' => null,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 5,
+        //     'tehniskas_apskates_termins' => '2026-11-20'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 3,
-            'registracijas_nr' => 'EF9012',
-            'gads' => 2023,
-            'degvielas_limenis' => null,
-            'baterijas_limenis' => 60,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 6,
-            'tehniskas_apskates_termins' => '2027-03-05'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 3,
+        //     'registracijas_nr' => 'EF9012',
+        //     'gads' => 2023,
+        //     'degvielas_limenis' => null,
+        //     'baterijas_limenis' => 60,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 6,
+        //     'tehniskas_apskates_termins' => '2027-03-05'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 4,
-            'registracijas_nr' => 'GH3456',
-            'gads' => 2020,
-            'degvielas_limenis' => 45,
-            'baterijas_limenis' => null,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 7,
-            'tehniskas_apskates_termins' => '2026-06-30'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 4,
+        //     'registracijas_nr' => 'GH3456',
+        //     'gads' => 2020,
+        //     'degvielas_limenis' => 45,
+        //     'baterijas_limenis' => null,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 7,
+        //     'tehniskas_apskates_termins' => '2026-06-30'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 2,
-            'registracijas_nr' => 'IJ7890',
-            'gads' => 2022,
-            'degvielas_limenis' => null,
-            'baterijas_limenis' => 95,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 8,
-            'tehniskas_apskates_termins' => '2027-01-18'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 2,
+        //     'registracijas_nr' => 'IJ7890',
+        //     'gads' => 2022,
+        //     'degvielas_limenis' => null,
+        //     'baterijas_limenis' => 95,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 8,
+        //     'tehniskas_apskates_termins' => '2027-01-18'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 1,
-            'registracijas_nr' => 'KL2345',
-            'gads' => 2021,
-            'degvielas_limenis' => 30,
-            'baterijas_limenis' => null,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 9,
-            'tehniskas_apskates_termins' => '2026-09-12'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 1,
+        //     'registracijas_nr' => 'KL2345',
+        //     'gads' => 2021,
+        //     'degvielas_limenis' => 30,
+        //     'baterijas_limenis' => null,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 9,
+        //     'tehniskas_apskates_termins' => '2026-09-12'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 3,
-            'registracijas_nr' => 'MN6789',
-            'gads' => 2023,
-            'degvielas_limenis' => null,
-            'baterijas_limenis' => 78,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 10,
-            'tehniskas_apskates_termins' => '2027-05-22'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 3,
+        //     'registracijas_nr' => 'MN6789',
+        //     'gads' => 2023,
+        //     'degvielas_limenis' => null,
+        //     'baterijas_limenis' => 78,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 10,
+        //     'tehniskas_apskates_termins' => '2027-05-22'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 4,
-            'registracijas_nr' => 'OP1234',
-            'gads' => 2020,
-            'degvielas_limenis' => 55,
-            'baterijas_limenis' => null,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 11,
-            'tehniskas_apskates_termins' => '2026-12-01'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 4,
+        //     'registracijas_nr' => 'OP1234',
+        //     'gads' => 2020,
+        //     'degvielas_limenis' => 55,
+        //     'baterijas_limenis' => null,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 11,
+        //     'tehniskas_apskates_termins' => '2026-12-01'
+        // ]);
 
-        Masina::create([
-            'modelis_id' => 1,
-            'registracijas_nr' => 'QR5678',
-            'gads' => 2022,
-            'degvielas_limenis' => null,
-            'baterijas_limenis' => 42,
-            'statuss' => 'pieejama',
-            'lokacija_id' => 12,
-            'tehniskas_apskates_termins' => '2027-02-14'
-        ]);
+        // Masina::create([
+        //     'modelis_id' => 1,
+        //     'registracijas_nr' => 'QR5678',
+        //     'gads' => 2022,
+        //     'degvielas_limenis' => null,
+        //     'baterijas_limenis' => 42,
+        //     'statuss' => 'pieejama',
+        //     'lokacija_id' => 12,
+        //     'tehniskas_apskates_termins' => '2027-02-14'
+        // ]);
     //     Lokacija::create([
     //     'platuma_gradi' => 56.5047,
     //     'garuma_gradi' => 21.0108,
@@ -269,21 +269,20 @@ class DatabaseSeeder extends Seeder
     //         'tehniskas_apskates_termins' => '2026-03-15'
     //     ]);
 
-    //     Lietotajs::create([
-    //         'vards' => 'Jānis',
-    //         'uzvards' => 'Bērziņš',
-    //         'pilns_vards' => 'Jānis Bērziņš',
-    //         'epasts' => 'janis@gmail.com',
-    //         'telefons' => '+37120000001',
-    //         'paroles_hash' => bcrypt('password'),
-    //         'vaditaja_apliecibas_nr' => 'LV001',
-    //         'vaditaja_apliecibas_statuss' => 'deriga',
-    //         'vaditaja_apliecibas_termins' => '2028-05-01',
-    //         'statuss' => 'aktīvs',
-    //         'izveidots' => now(),
-    //         'loma' => 'lietotajs'
-
-    //     ]);
+        Lietotajs::create([
+            'vards' => 'admin',
+            'uzvards' => 'admin',
+            'pilns_vards' => 'admin admin',
+            'epasts' => 'admin@admin.com',
+            'telefons' => '+37120000000',
+            'paroles_hash' => bcrypt('password'),
+            'vaditaja_apliecibas_nr' => 'LV001',
+            'vaditaja_apliecibas_statuss' => 'deriga',
+            'vaditaja_apliecibas_termins' => '2028-05-01',
+            'statuss' => 'aktīvs',
+            'izveidots' => now(),
+            'loma' => 'admins'
+        ]);
 
     //     Lietotajs::create([
     //         'vards' => 'Anna',

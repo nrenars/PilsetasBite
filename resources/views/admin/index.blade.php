@@ -18,5 +18,10 @@
             <span class="stat-number">{{ $stats['braucieni'] }}</span>
             <span class="stat-label">Braucieni</span>
         </div>
+        <div class="stat-card">
+            <span class="stat-number">{{ $stats['verifikacijas'] }}</span>
+            <span class="stat-label">Verifikacijas</span>
+        </div>
+        
     </div>
 </x-admin-layout>

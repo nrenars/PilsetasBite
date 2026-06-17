@@ -22,8 +22,12 @@ class AuthController extends Controller
             'uzvards'            => 'required|string|max:255',
             'epasts'                 => 'required|email|unique:lietotajs,epasts',
             'telefons' => 'required|unique:lietotajs,telefons|regex:/^\+?[0-9]{8,15}$/',
+            'vaditaja_apliecibas_nr' => 'required|string|max:255',
+            'vaditaja_apliecibas_termins' => 'required|date|after:today',
+            'vaditaja_apliecibas_attels' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
             'parole'              => 'required|min:8|confirmed',
         ]);
+        $path = $request->file('vaditaja_apliecibas_attels')->store('driver_licenses', 'public');
         $user = Lietotajs::create([
             'vards'                       => $validated['vards'],
             'uzvards'                     => $validated['uzvards'],
@@ -34,9 +38,10 @@ class AuthController extends Controller
             'loma'                        => 'lietotajs',
             'statuss'                     => 'aktīvs',
             'izveidots'                   => now(),
-            'vaditaja_apliecibas_nr'      => null,
-            'vaditaja_apliecibas_statuss' => null,
-            'vaditaja_apliecibas_termins' => null,
+            'vaditaja_apliecibas_nr' => $request->vaditaja_apliecibas_nr,
+            'vaditaja_apliecibas_termins' => $request->vaditaja_apliecibas_termins,
+            'vaditaja_apliecibas_attels' => $path,
+            'vaditaja_apliecibas_statuss' => 'gaida'
         ]);
 
         Auth::login($user);
