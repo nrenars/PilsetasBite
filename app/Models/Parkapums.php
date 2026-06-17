@@ -10,7 +10,9 @@ class Parkapums extends Model
         'apraksts',
         'summa',
         'tips',
-        'statuss'
+        'statuss',
+        'lietotajs_id',
+        'ire_id',
     ];
     public function lietotajs()
     {

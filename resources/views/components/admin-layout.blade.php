@@ -38,6 +38,7 @@
         <a href="{{ route('admin.rezervacijas') }}" @class(['active' => request()->routeIs('admin.rezervacijas')])>Rezervācijas</a>
         <a href="{{ route('admin.braucieni') }}" @class(['active' => request()->routeIs('admin.braucieni')])>Braucieni</a>
         <a href="{{ route('admin.atsauksmes') }}" @class(['active' => request()->routeIs('admin.atsauksmes')])>Atsauksmes</a>
+        <a href="{{ route('admin.parkapumi') }}" @class(['active' => request()->routeIs('admin.parkapumi')])>Pārkāpumi</a>
         <hr style="border-color:#333; margin: 1rem 0;">
         <a href="{{ route('welcome') }}">← Uz sākumu</a>
     </aside>

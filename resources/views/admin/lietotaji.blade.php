@@ -34,6 +34,12 @@
                             <button type="submit" class="btn-small btn-warn">Noņemt adminu</button>
                         </form>
                     @endif
+                    @if ($l->statuss === 'bloķēts')
+                        <form method="POST" action="{{ route('admin.lietotaji.atbloket', $l->id) }}">
+                            @csrf @method('PATCH')
+                            <button type="submit" class="btn-small" style="background:#28a745; color:#fff;">Atbloķēt</button>
+                        </form>
+                    @endif
                     @if ($l->id !== auth()->id())
                         <form method="POST" action="{{ route('admin.lietotaji.destroy', $l->id) }}" onsubmit="return confirm('Dzēst lietotāju?')">
                             @csrf @method('DELETE')

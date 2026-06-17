@@ -75,4 +75,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/braucieni', [AdminController::class, 'braucieni'])->name('braucieni');
     Route::get('/atsauksmes', [AdminController::class, 'atsauksmes'])->name('atsauksmes');
     Route::delete('/atsauksmes/{atsauksme}', [AdminController::class, 'dziestAtsauksmi'])->name('atsauksmes.destroy');
+    Route::get('/parkapumi', [AdminController::class, 'parkapumi'])->name('parkapumi');
+    Route::post('/parkapumi/nobloket', [AdminController::class, 'nobloket'])->name('parkapumi.nobloket');
+    Route::patch('/parkapumi/{parkapums}/samaksats', [AdminController::class, 'atzimetSamaksatu'])->name('parkapumi.samaksats');
+    Route::patch('/lietotaji/{lietotajs}/atbloket', [AdminController::class, 'atbloket'])->name('lietotaji.atbloket');
 });

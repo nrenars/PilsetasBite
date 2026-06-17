@@ -52,6 +52,9 @@ class AuthController extends Controller
         $user = \App\Models\Lietotajs::where('epasts', $validated['epasts'])->first();
 
         if ($user && Hash::check($validated['parole'], $user->paroles_hash)) {
+            if ($user->statuss === 'bloķēts') {
+                return back()->withErrors(['epasts' => 'Jūsu konts ir nobloķēts. Sazinieties ar administrāciju.']);
+            }
             Auth::login($user);
             $request->session()->regenerate();
             return redirect('/')->with('success', 'Login successful');
