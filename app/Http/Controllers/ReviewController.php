@@ -38,6 +38,8 @@ class ReviewController extends Controller
             'izveidots'    => now(),
         ]);
 
-        return redirect()->route('welcome')->with('success', 'Review posted successfully!');
+        return redirect()
+            ->route('welcome')
+            ->with('success', __('messages.review_posted_successfully'));
     }
 }

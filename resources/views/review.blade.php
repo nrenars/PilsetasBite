@@ -1,11 +1,11 @@
 <x-layout>
     <div class="review-page">
         <div class="review-card">
-
+    
             <div class="review-header">
-                <span class="page-badge">Review</span>
+                <span class="page-badge">{{ __('messages.review') }}</span>
                 <h1>{{ __('messages.rating') }}</h1>
-                <p>Tell us how your ride went. Your feedback helps improve the service.</p>
+                <p>{{ __('messages.review_description') }}</p>
             </div>
 
             <form action="{{ route('review.submit', $ride->id) }}" method="POST" class="review-form">

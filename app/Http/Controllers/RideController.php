@@ -11,6 +11,14 @@ class RideController extends Controller
 {
     public function begin(Request $request, $id)
     {
+        $user = auth()->user();
+
+        if (!$user || trim((string) $user->vaditaja_apliecibas_statuss) !== 'deriga') {
+            return response()->json([
+                'message' => 'Driver license is not verified.'
+            ], 403);
+        }
+
         $masina = Masina::findOrFail($id);
 
         $ride = Ire::create([

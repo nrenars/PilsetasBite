@@ -21,9 +21,6 @@
         </div>
         <div id="dropdown">
             <i id="profile-icon" class="fa-regular fa-circle-user"></i>
-            {{-- <i class="fa-solid fa-circle-user"></i>
-            <i class="fa-regular fa-user"></i>
-            <i class="fa-solid fa-user"></i>  --}}
             <div id="dropdown-content">
                 @guest
                 <ul>
@@ -70,6 +67,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
         {{ $slot }}
     </main>
 
@@ -79,6 +81,38 @@
             window.reservationsText = "{{ __('messages.reservations') }}";
         </script>
     @endauth
+
+    <script>
+        window.i18n = {
+            year: @json(__('messages.year')),
+            seat_count: @json(__('messages.seat_count')),
+            fuel_battery: @json(__('messages.fuel_battery')),
+            fuel_level: @json(__('messages.fuel_level')),
+            battery: @json(__('messages.battery')),
+            no_data: @json(__('messages.no_data')),
+
+            make_reservation: @json(__('messages.make_reservation')),
+            begin_ride: @json(__('messages.begin_ride')),
+            license_required: @json(__('messages.license_required')),
+            already_active_reservation: @json(__('messages.already_active_reservation')),
+            car_not_available: @json(__('messages.car_not_available')),
+            error: @json(__('messages.error')),
+            reservation_successful: @json(__('messages.reservation_successful')),
+            license_not_valid: @json(__('messages.license_not_valid')),
+            error: @json(__('messages.error')),
+
+            years_positive: @json(__('messages.years_positive')),
+            year_from_greater: @json(__('messages.year_from_greater')),
+            invalid_year_range: @json(__('messages.invalid_year_range')),
+            no_cars_from: @json(__('messages.no_cars_from')),
+
+            statuses: {
+                "pieejama": @json(__('messages.status_available')),
+                "rezervēta": @json(__('messages.status_reserved')),
+                "lietošanā": @json(__('messages.status_in_use'))
+            }
+        };
+    </script>
 
     @vite(['resources/js/map.js'])
     <script>

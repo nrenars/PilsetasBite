@@ -34,8 +34,22 @@
         </div>
     </div>
 
+    @php
+        $hasVerifiedDriverLicense = auth()->check()
+            && trim((string) auth()->user()->vaditaja_apliecibas_statuss) === 'deriga';
+
+        $hasActiveReservation = auth()->check()
+            && auth()->user()->rezervacija()
+                ->where('statuss', 'aktīva')
+                ->where('deriguma_beigas', '>', now())
+                ->exists();
+    @endphp
+
     <script>
         window.masinas = @json($masinas);
+        window.hasVerifiedDriverLicense = @json($hasVerifiedDriverLicense);
+        window.hasActiveReservation = @json($hasActiveReservation);
+        window.csrfToken = @json(csrf_token());
     </script>
 
     @if (Route::has('login'))

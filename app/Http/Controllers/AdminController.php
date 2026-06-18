@@ -84,7 +84,7 @@ class AdminController extends Controller
 
     public function apstiprinatApliecibu(Lietotajs $lietotajs)
     {
-        $lietotajs->vaditaja_apliecibas_statuss = 'apstiprinata';
+        $lietotajs->vaditaja_apliecibas_statuss = 'aktīva';
         $lietotajs->save();
         return back()->with('success', 'Vadītāja apliecība apstiprināta.');
     }

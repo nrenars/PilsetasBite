@@ -3,76 +3,76 @@
 
         <div id="ride-view" class="ride-card">
             <div class="ride-header">
-                <span class="page-badge">Active ride</span>
-                <h1>Your ride is active</h1>
-                <p>Track your ride time, distance and estimated price in real time.</p>
+                <span class="page-badge">{{ __('messages.active_ride') }}</span>
+                <h1>{{ __('messages.your_ride_is_active') }}</h1>
+                <p>{{ __('messages.ride_tracking_description') }}</p>
             </div>
 
             <div class="ride-stats">
                 <div class="ride-stat">
-                    <span>Time</span>
+                    <span>{{ __('messages.time') }}</span>
                     <strong id="timer">00:00:00</strong>
                 </div>
 
                 <div class="ride-stat">
-                    <span>Distance</span>
+                    <span>{{ __('messages.distance') }}</span>
                     <strong><span id="distance">0.00</span> km</strong>
                 </div>
 
                 <div class="ride-stat">
-                    <span>Price</span>
+                    <span>{{ __('messages.price') }}</span>
                     <strong><span id="price">0.00</span> €</strong>
                 </div>
             </div>
 
             <div class="gps-status" id="gps-status">
-                Waiting for GPS permission...
+                {{ __('messages.waiting_gps_permission') }}
             </div>
 
             <div id="ride-map"></div>
 
             <button id="end-ride-btn" class="ride-end-btn">
-                End Ride
+                {{ __('messages.end_ride') }}
             </button>
         </div>
 
         <div id="ride-summary" class="ride-card ride-summary-card" style="display:none">
             <div class="ride-header">
-                <span class="page-badge">Ride summary</span>
-                <h1>Ride finished</h1>
-                <p>Check your ride summary and continue to payment.</p>
+                <span class="page-badge">{{ __('messages.ride_summary') }}</span>
+                <h1>{{ __('messages.ride_finished') }}</h1>
+                <p>{{ __('messages.ride_summary_description') }}</p>
             </div>
 
             <div class="ride-stats">
                 <div class="ride-stat">
-                    <span>Time</span>
+                    <span>{{ __('messages.time') }}</span>
                     <strong id="summary-time"></strong>
                 </div>
 
                 <div class="ride-stat">
-                    <span>Distance</span>
+                    <span>{{ __('messages.distance') }}</span>
                     <strong><span id="summary-distance"></span> km</strong>
                 </div>
 
                 <div class="ride-stat">
-                    <span>Price bez PVN</span>
+                    <span>{{ __('messages.amount_no_vat') }}</span>
                     <strong><span id="summary-price"></span> €</strong>
                 </div>
             </div>
 
             <button id="pay-btn" class="ride-pay-btn">
-                Apmaksāt
+                {{ __('messages.pay') }}
             </button>
 
             <div id="payment-success" class="payment-success" style="display:none">
-                <h2>✅ Maksājums veikts!</h2>
-                <p>Summa bez PVN: <strong><span id="paid-summa-bez-pvn"></span> €</strong></p>
-                <p>Summa ar PVN: <strong><span id="paid-summa-ar-pvn"></span> €</strong></p>
-                <p>Veids: <strong><span id="paid-veids"></span></strong></p>
-                <p>Datums: <strong><span id="paid-datums"></span></strong></p>
+                <h2>✅ {{ __('messages.payment_success') }}</h2>
+                <p>{{ __('messages.amount_no_vat') }}: <strong><span id="paid-summa-bez-pvn"></span> €</strong></p>
+                <p>{{ __('messages.amount_with_vat') }}: <strong><span id="paid-summa-ar-pvn"></span> €</strong></p>
+                <p>{{ __('messages.method') }}: <strong><span id="paid-veids"></span></strong></p>
+                <p>{{ __('messages.date') }}: <strong><span id="paid-datums"></span></strong></p>
             </div>
 
-            <a href="/" class="ride-back-link">Back to map</a>
+            <a href="/" class="ride-back-link">{{ __('messages.back_to_map') }}</a>
         </div>
 
     </div>
@@ -80,6 +80,22 @@
     <script>
         const rideId = {{ $ride->id }};
         const csrfToken = "{{ csrf_token() }}";
+
+        const rideI18n = {
+            waitingGpsPermission: @json(__('messages.waiting_gps_permission')),
+            gpsNotSupported: @json(__('messages.gps_not_supported')),
+            allowGpsAccess: @json(__('messages.allow_gps_access')),
+            gpsActiveAccuracy: @json(__('messages.gps_active_accuracy')),
+            gpsPermissionDenied: @json(__('messages.gps_permission_denied')),
+            gpsPositionUnavailable: @json(__('messages.gps_position_unavailable')),
+            gpsRequestTimedOut: @json(__('messages.gps_request_timed_out')),
+            gpsErrorOccurred: @json(__('messages.gps_error_occurred')),
+            yourLocation: @json(__('messages.your_location')),
+            paymentCreationError: @json(__('messages.payment_creation_error')),
+            hourShort: @json(__('messages.hour_short')),
+            minuteShort: @json(__('messages.minute_short')),
+            secondShort: @json(__('messages.second_short')),
+        };
 
         let startTime = Date.now();
         let totalDistance = 0;
@@ -107,9 +123,9 @@
 
             let parts = [];
 
-            if (hours > 0) parts.push(`${hours}h`);
-            if (minutes > 0) parts.push(`${minutes}min`);
-            parts.push(`${seconds}s`);
+            if (hours > 0) parts.push(`${hours}${rideI18n.hourShort}`);
+            if (minutes > 0) parts.push(`${minutes}${rideI18n.minuteShort}`);
+            parts.push(`${seconds}${rideI18n.secondShort}`);
 
             return parts.join(' ');
         }
@@ -172,7 +188,7 @@
                 userMarker = new google.maps.Marker({
                     position,
                     map: rideMap,
-                    title: 'Your location',
+                    title: rideI18n.yourLocation,
                 });
             } else {
                 userMarker.setPosition(position);
@@ -186,17 +202,20 @@
 
         function startGpsTracking() {
             if (!navigator.geolocation) {
-                setGpsStatus('GPS is not supported by this browser.', 'error');
+                setGpsStatus(rideI18n.gpsNotSupported, 'error');
                 return;
             }
 
-            setGpsStatus('Please allow GPS/location access...', '');
+            setGpsStatus(rideI18n.allowGpsAccess, '');
 
             watchId = navigator.geolocation.watchPosition(
                 (pos) => {
                     const { latitude, longitude, accuracy } = pos.coords;
 
-                    setGpsStatus(`GPS active. Accuracy: ${Math.round(accuracy)}m`, 'success');
+                    setGpsStatus(
+                        rideI18n.gpsActiveAccuracy.replace(':accuracy', Math.round(accuracy)),
+                        'success'
+                    );
 
                     if (lastPosition) {
                         const segmentDistance = getDistance(
@@ -226,13 +245,13 @@
                 },
                 (error) => {
                     if (error.code === error.PERMISSION_DENIED) {
-                        setGpsStatus('GPS permission denied. Distance cannot be tracked.', 'error');
+                        setGpsStatus(rideI18n.gpsPermissionDenied, 'error');
                     } else if (error.code === error.POSITION_UNAVAILABLE) {
-                        setGpsStatus('GPS position unavailable.', 'error');
+                        setGpsStatus(rideI18n.gpsPositionUnavailable, 'error');
                     } else if (error.code === error.TIMEOUT) {
-                        setGpsStatus('GPS request timed out.', 'error');
+                        setGpsStatus(rideI18n.gpsRequestTimedOut, 'error');
                     } else {
-                        setGpsStatus('GPS error occurred.', 'error');
+                        setGpsStatus(rideI18n.gpsErrorOccurred, 'error');
                     }
                 },
                 {
@@ -297,9 +316,10 @@
                 window.location.href = data.url;
             } else {
                 const error = await response.json();
-                alert(error.error || 'Kļūda apmaksas izveidē.');
+                alert(error.error || rideI18n.paymentCreationError);
             }
         });
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.google && google.maps && document.getElementById('ride-map')) {
                 window.initRideMap();

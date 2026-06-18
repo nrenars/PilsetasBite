@@ -1,3 +1,17 @@
+function t(key, replacements = {}) {
+    let text = window.i18n?.[key] ?? key;
+
+    Object.entries(replacements).forEach(([placeholder, value]) => {
+        text = text.replace(`:${placeholder}`, value);
+    });
+
+    return text;
+}
+
+function translateStatus(status) {
+    return window.i18n?.statuses?.[status] ?? status;
+}
+
 function addReservationsToDropdown() {
     const menu = document.getElementById('auth-dropdown-menu');
 
@@ -110,22 +124,22 @@ window.initMap = function () {
     let yearToValue = yearTo.value !== "" ? parseInt(yearTo.value) : currentYear;
 
     if (yearFromValue < 0 || yearToValue < 0) {
-        errorDiv.textContent = "Years must be a positive value!";
+        errorDiv.textContent = t('years_positive');
         yearFrom.value = "";
         yearTo.value = "";
         return;
     } else if (yearToValue < yearFromValue) {
-        errorDiv.textContent = 'Year "from" must not be greater than year "to"';
+        errorDiv.textContent = t('year_from_greater');
         yearFrom.value = "";
         yearTo.value = "";
         return;
     } else if (yearFromValue > currentYear || yearToValue > currentYear) {
-        errorDiv.textContent = "Invalid Year Range";
+        errorDiv.textContent = t('invalid_year_range');
         yearFrom.value = "";
         yearTo.value = "";
         return;
     } else if (yearFromValue < oldest || yearToValue < oldest) {
-        errorDiv.textContent = `There are no cars from ${oldest} available`;
+        errorDiv.textContent = t('no_cars_from', { year: oldest });
         yearFrom.value = "";
         yearTo.value = "";
         return;
@@ -167,54 +181,73 @@ window.initMap = function () {
         marker.addListener('click', () => {
             let fuel = masina.degvielas_limenis;
             let battery = masina.baterijas_limenis;
-            let energyHtml = '';
+            let energyText = '';
+
             if (fuel !== null && fuel !== undefined) {
-                energyHtml = `<p>Degvielas līmenis: ${fuel}%</p>`;
+                energyText = `${t('fuel_level')}: ${fuel}%`;
             } else if (battery !== null && battery !== undefined) {
-                energyHtml = `<p>Baterija: ${battery}%</p>`;
+                energyText = `${t('battery')}: ${battery}%`;
             } else {
-                energyHtml = `<p>Nav datu</p>`;
+                energyText = t('no_data');
             }
 
             const reservationUrl = `/reservation/${masina.id}`;
             const csrfToken = window.csrfToken;
             const rideUrl = `/ride/${masina.id}`;
 
-            const actionHtml = `
-                <div class="car-card-actions">
-                    <form id="reservation-form-${masina.id}" action="${reservationUrl}" method="POST">
-                        <input type="hidden" name="_token" value="${csrfToken}">
-                        <button class="btn btn-reservation" type="submit">Make a Reservation</button>
-                    </form>
+            let actionHtml = '';
 
-                    <form id="ride-form-${masina.id}" action="${rideUrl}" method="POST">
-                        <input type="hidden" name="_token" value="${csrfToken}">
-                        <button class="btn btn-ride" type="submit">Begin Ride</button>
-                    </form>
-                </div>`;
+            if (!window.hasVerifiedDriverLicense) {
+                actionHtml = `
+                    <div class="car-card-actions">
+                        <p class="error-message">
+                            ${t('license_required')}
+                        </p>
+                    </div>`;
+            } else if (window.hasActiveReservation) {
+                actionHtml = `
+                    <div class="car-card-actions">
+                        <p class="error-message">
+                            ${t('already_active_reservation')}
+                        </p>
+                    </div>`;
+            } else {
+                actionHtml = `
+                    <div class="car-card-actions">
+                        <form id="reservation-form-${masina.id}" action="${reservationUrl}" method="POST">
+                            <input type="hidden" name="_token" value="${csrfToken}">
+                            <button class="btn btn-reservation" type="submit">${t('make_reservation')}</button>
+                        </form>
+
+                        <form id="ride-form-${masina.id}" action="${rideUrl}" method="POST">
+                            <input type="hidden" name="_token" value="${csrfToken}">
+                            <button class="btn btn-ride" type="submit">${t('begin_ride')}</button>
+                        </form>
+                    </div>`;
+            }
 
             carCard.innerHTML = `
                 <div class="car-card-header">
                     <div>
                         <h2>${masina.modelis.marka} ${masina.modelis.modelis}</h2>
-                        <span class="car-status">${masina.statuss}</span>
+                        <span class="car-status">${translateStatus(masina.statuss)}</span>
                     </div>
                 </div>
 
                 <div class="car-card-body">
                     <div class="car-info-row">
-                        <span>Gads</span>
+                        <span>${t('year')}</span>
                         <strong>${masina.gads}</strong>
                     </div>
 
                     <div class="car-info-row">
-                        <span>Vietu skaits</span>
+                        <span>${t('seat_count')}</span>
                         <strong>${masina.modelis.vietu_skaits}</strong>
                     </div>
 
                     <div class="car-info-row">
-                        <span>Degviela / Baterija</span>
-                        <strong>${energyHtml.replace('<p>', '').replace('</p>', '')}</strong>
+                        <span>${t('fuel_battery')}</span>
+                        <strong>${energyText}</strong>
                     </div>
                 </div>
 
@@ -222,27 +255,38 @@ window.initMap = function () {
             `;
 
             const form = document.getElementById(`reservation-form-${masina.id}`);
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                    });
+
+                    if (response.ok) {
+                        masina.statuss = 'rezervēta';
+                        window.hasActiveReservation = true;
+
+                        marker.setMap(null);
+
+                        addReservationsToDropdown();
+
+                        form.innerHTML = `<p class="success-message">${t('reservation_successful')}</p>`;
+                    } else if (response.status === 403) {
+                        form.innerHTML = `<p class="error-message">${t('license_not_valid')}</p>`;
+                    } else if (response.status === 409) {
+                        const data = await response.json().catch(() => null);
+                        form.innerHTML = `<p class="error-message">${data?.message || t('already_active_reservation')}</p>`;
+                    } else {
+                        form.innerHTML = `<p class="error-message">${t('error')}</p>`;
+                    }
                 });
-                if (response.ok) {
-                    masina.statuss = 'rezervēta';
-                    marker.setMap(null);
-
-                    addReservationsToDropdown();
-
-                    form.innerHTML = `<p class="success-message">Reservation successful!</p>`;
-                } else {
-                    form.innerHTML = `<p class="error-message">Error!</p>`;
-                }
-            });
+            }   
         });
     });
 };
@@ -251,11 +295,6 @@ window.addEventListener('load', () => {
     if (typeof google !== 'undefined') {
         window.initMap();
     }
-    // const modelDropdown = document.getElementById('model-dropdown');
-    // const fuelDropdown = document.getElementById('fuel-dropdown');
-    // const transmissionDropdown = document.getElementById('transmission-dropdown');
-
-
     document.getElementById('filter-btn').addEventListener('click', (e) => {
         e.preventDefault();
         window.initMap();

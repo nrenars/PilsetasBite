@@ -50,4 +50,12 @@ class Lietotajs extends Authenticatable
     {
         return $this->paroles_hash;
     }
+    public function isAdmin() 
+    {
+        return $this->loma === 'admins';
+    }
+    public function isUser() 
+    {
+        return $this->loma === 'lietotajs';
+    }
 }
