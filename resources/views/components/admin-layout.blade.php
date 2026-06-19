@@ -35,6 +35,8 @@
         <h2>Admin panelis</h2>
         <a href="{{ route('admin.index') }}" @class(['active' => request()->routeIs('admin.index')])>Pārskats</a>
         <a href="{{ route('admin.lietotaji') }}" @class(['active' => request()->routeIs('admin.lietotaji')])>Lietotāji</a>
+        <a href="{{ route('admin.masinas') }}" @class(['active' => request()->routeIs('admin.masinas')])>Mašīnas</a>
+        <a href="{{ route('admin.maksajumi') }}" @class(['active' => request()->routeIs('admin.maksajumi')])>Maksājumi</a>
         <a href="{{ route('admin.rezervacijas') }}" @class(['active' => request()->routeIs('admin.rezervacijas')])>Rezervācijas</a>
         <a href="{{ route('admin.braucieni') }}" @class(['active' => request()->routeIs('admin.braucieni')])>Braucieni</a>
         <a href="{{ route('admin.atsauksmes') }}" @class(['active' => request()->routeIs('admin.atsauksmes')])>Atsauksmes</a>

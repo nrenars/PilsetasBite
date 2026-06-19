@@ -11,7 +11,6 @@ class ReviewController extends Controller
 {
     public function get(Request $request, Ire $ride)
     {
-        // Pārbauda, ka brauciens pieder šim lietotājam
         if ($ride->lietotajs_id !== Auth::id()) {
             abort(403);
         }
@@ -38,8 +37,6 @@ class ReviewController extends Controller
             'izveidots'    => now(),
         ]);
 
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.review_posted_successfully'));
+        return redirect()->route('welcome')->with('success', __('messages.review_posted_successfully'));
     }
 }

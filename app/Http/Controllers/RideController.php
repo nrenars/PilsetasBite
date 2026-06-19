@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ire;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Masina;
+use App\Models\Rezervacija;
 
 class RideController extends Controller
 {
@@ -52,7 +53,7 @@ class RideController extends Controller
 
         $seconds = $sakumaLaiks->diffInSeconds(now());
         $minutes = $seconds / 60;
-        $price = ($minutes * 0.50) + ($request->distance * 0.20);
+        $price = ($minutes * 0.10) + ($request->distance * 0.20);
         $ride->cena = $price;
 
         $masina = Masina::find($ride->masina_id);
@@ -60,6 +61,9 @@ class RideController extends Controller
             $masina->statuss = 'pieejama';
             $masina->save();
         }
+
+        $rezervacija = Rezervacija::where('lietotajs_id', Auth::id())->where('masina_id', $ride->masina_id)->whereIn('statuss', ['aktīva', 'rezervēta', 'apstiprināta'])->latest()->first();
+        $rezervacija->delete();
 
         $ride->save();
 

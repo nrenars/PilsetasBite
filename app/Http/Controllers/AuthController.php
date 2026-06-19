@@ -48,9 +48,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.registration_successful'));
+        return redirect()->route('welcome')->with('success', __('messages.registration_successful'));
     }
 
     public function login(Request $request)
@@ -65,14 +63,10 @@ class AuthController extends Controller
         if ($user && Hash::check($validated['parole'], $user->paroles_hash)) {
             Auth::login($user);
             $request->session()->regenerate();
-
-            return redirect('/')
-                ->with('success', __('messages.login_successful'));
+            return redirect('/')->with('success', __('messages.login_successful'));
         }
 
-        return back()
-            ->withErrors(['epasts' => __('messages.invalid_login')])
-            ->withInput();
+        return back()->withErrors(['epasts' => __('messages.invalid_login')])->withInput();
     }
 
     public function logout(Request $request)
@@ -80,16 +74,23 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.logout_successful'));
+        return redirect()->route('welcome')->with('success', __('messages.logout_successful'));
+    }
+    public function showProfile(Request $request)
+    {
+        $user = Auth::user();
+        $rides = $user->ire()->with('maksajums')->latest()->get();
+        return view('auth.profile', compact('user', 'rides'));
     }
 
+    public function edit(Request $request)
+    {
+        $lietotajs = Auth::user();
+        return view('auth.edit', compact('lietotajs'));
+    }
     public function update(Request $request)
     {
         $user = Auth::user();
-
         $request->validate([
             'vards' => 'required|string|max:255',
             'uzvards' => 'required|string|max:255',
@@ -110,23 +111,16 @@ class AuthController extends Controller
 
         $user->save();
 
-        return redirect()
-            ->route('showProfile')
-            ->with('success', __('messages.profile_updated_successfully'));
+        return redirect()->route('showProfile')->with('success', __('messages.profile_updated_successfully'));
     }
 
     public function destroy(Request $request)
     {
         $user = Auth::user();
-
         Auth::logout();
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.account_deleted_successfully'));
+        return redirect()->route('welcome')->with('success', __('messages.account_deleted_successfully'));
     }
 }

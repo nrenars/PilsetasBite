@@ -25,16 +25,10 @@ class ReservationController extends Controller
                     'message' => __('messages.driver_license_not_verified')
                 ], 403);
             }
-
-            return redirect()
-                ->back()
-                ->with('error', __('messages.driver_license_not_verified'));
+            return redirect()->back()->with('error', __('messages.driver_license_not_verified'));
         }
 
-        $hasActiveReservation = Rezervacija::where('lietotajs_id', $user->id)
-            ->where('statuss', 'aktīva')
-            ->where('deriguma_beigas', '>', now())
-            ->exists();
+        $hasActiveReservation = Rezervacija::where('lietotajs_id', $user->id)->where('statuss', 'aktīva')->where('deriguma_beigas', '>', now())->exists();
 
         if ($hasActiveReservation) {
             if ($request->expectsJson()) {
@@ -42,10 +36,7 @@ class ReservationController extends Controller
                     'message' => __('messages.already_active_reservation')
                 ], 409);
             }
-
-            return redirect()
-                ->back()
-                ->with('error', __('messages.already_active_reservation'));
+            return redirect()->back()->with('error', __('messages.already_active_reservation'));
         }
 
         if ($masina->statuss !== 'pieejama') {
@@ -54,10 +45,7 @@ class ReservationController extends Controller
                     'message' => __('messages.car_not_available')
                 ], 409);
             }
-
-            return redirect()
-                ->back()
-                ->with('error', __('messages.car_not_available'));
+            return redirect()->back()->with('error', __('messages.car_not_available'));
         }
 
         $reservation = Rezervacija::create([
@@ -78,9 +66,7 @@ class ReservationController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.reservation_successful'));
+        return redirect()->route('welcome')->with('success', __('messages.reservation_successful'));
     }
 
     public function show()
@@ -91,17 +77,10 @@ class ReservationController extends Controller
 
     public function destroy(string $id)
     {
-        $reservation = Rezervacija::where('id', $id)
-            ->where('lietotajs_id', Auth::user()->id)
-            ->firstOrFail();
-
+        $reservation = Rezervacija::where('id', $id)->where('lietotajs_id', Auth::user()->id)->firstOrFail();
         $reservation->masina->statuss = 'pieejama';
         $reservation->masina->save();
-
         $reservation->delete();
-
-        return redirect()
-            ->route('welcome')
-            ->with('success', __('messages.reservation_cancelled_successfully'));
+        return redirect()->route('welcome')->with('success', __('messages.reservation_cancelled_successfully'));
     }
 }

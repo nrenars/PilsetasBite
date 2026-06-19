@@ -150,10 +150,7 @@ window.initMap = function () {
     
     
     let masinas = window.masinas.filter(masina =>
-        masina.statuss === 'pieejama' &&
-        masina.lokacija &&
-        parseInt(masina.gads) >= yearFromValue &&
-        parseInt(masina.gads) <= yearToValue
+        masina.statuss === 'pieejama' && masina.lokacija && parseInt(masina.gads) >= yearFromValue && parseInt(masina.gads) <= yearToValue
     );
     
     if(fuelDropdown.value !== ""){

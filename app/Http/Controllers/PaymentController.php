@@ -11,12 +11,9 @@ use Stripe\Checkout\Session;
 
 class PaymentController extends Controller
 {
-    // Izveido Stripe Checkout sesiju un atgriež URL
     public function pay(Request $request, $id)
     {
-        $ride = Ire::where('id', $id)
-            ->where('lietotajs_id', Auth::id())
-            ->firstOrFail();
+        $ride = Ire::where('id', $id)->where('lietotajs_id', Auth::id())->firstOrFail();
 
         if ($ride->statuss !== 'pabeigta') {
             return response()->json([
@@ -62,18 +59,13 @@ class PaymentController extends Controller
 
     public function success(Request $request, $id)
     {
-        $ride = Ire::where('id', $id)
-            ->where('lietotajs_id', Auth::id())
-            ->firstOrFail();
-
+        $ride = Ire::where('id', $id)->where('lietotajs_id', Auth::id())->firstOrFail();
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = Session::retrieve($request->query('session_id'));
-
         if ($session->payment_status === 'paid' && !$ride->maksajums) {
             $summaArPvn = $session->amount_total / 100;
             $summaBezPvn = round($summaArPvn / 1.21, 2);
-
             Maksajums::create([
                 'summa_bez_pvn'     => $summaBezPvn,
                 'summa_ar_pvn'      => $summaArPvn,
@@ -84,15 +76,11 @@ class PaymentController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('review.get', $ride->id)
-            ->with('success', __('messages.payment_completed_successfully'));
+        return redirect()->route('review.get', $ride->id)->with('success', __('messages.payment_completed_successfully'));
     }
 
-    // Ja lietotājs atceļ apmaksu
     public function cancel($id)
     {
-        return redirect('/')
-            ->with('error', __('messages.payment_cancelled'));
+        return redirect('/')->with('error', __('messages.payment_cancelled'));
     }
 }

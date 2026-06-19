@@ -67,15 +67,31 @@ Route::get('/make-me-admin', function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+
     Route::get('/lietotaji', [AdminController::class, 'lietotaji'])->name('lietotaji');
     Route::patch('/lietotaji/{lietotajs}/loma/{loma}', [AdminController::class, 'mainLietotaju'])->name('lietotaji.loma');
     Route::delete('/lietotaji/{lietotajs}', [AdminController::class, 'dziestLietotaju'])->name('lietotaji.destroy');
+
     Route::get('/rezervacijas', [AdminController::class, 'rezervacijas'])->name('rezervacijas');
     Route::delete('/rezervacijas/{rezervacija}', [AdminController::class, 'dziestRezervaciju'])->name('rezervacijas.destroy');
+
     Route::get('/braucieni', [AdminController::class, 'braucieni'])->name('braucieni');
+
+    Route::get('/maksajumi', [AdminController::class, 'maksajumi'])->name('maksajumi');
+
     Route::get('/atsauksmes', [AdminController::class, 'atsauksmes'])->name('atsauksmes');
     Route::delete('/atsauksmes/{atsauksme}', [AdminController::class, 'dziestAtsauksmi'])->name('atsauksmes.destroy');
+
     Route::get('/verifikacija', [AdminController::class, 'verifikacija'])->name('verifikacija');
     Route::put('/verifikacija/{lietotajs}/apstiprinat', [AdminController::class, 'apstiprinatApliecibu'])->name('verifikacija.apstiprinat');
     Route::put('/verifikacija/{lietotajs}/noraidit', [AdminController::class, 'noraiditApliecibu'])->name('verifikacija.noraidit');
+
+    Route::get('/masinas', [AdminController::class, 'masinas'])->name('masinas');
+    Route::get('/masinas/create', [AdminController::class, 'izveidotMasinu'])->name('masinas.create');
+    Route::post('/masinas', [AdminController::class, 'saglabatMasinu'])->name('masinas.store');
+    Route::get('/masinas/{masina}/edit', [AdminController::class, 'redigetMasinu'])->name('masinas.edit');
+    Route::put('/masinas/{masina}', [AdminController::class, 'atjauninatMasinu'])->name('masinas.update');
+    Route::patch('/masinas/{masina}/deaktivizet', [AdminController::class, 'deaktivizetMasinu'])->name('masinas.deactivate');
+    Route::patch('/masinas/{masina}/aktivizet', [AdminController::class, 'aktivizetMasinu'])->name('masinas.activate');
+
 });

@@ -35,14 +35,8 @@
     </div>
 
     @php
-        $hasVerifiedDriverLicense = auth()->check()
-            && trim((string) auth()->user()->vaditaja_apliecibas_statuss) === 'deriga';
-
-        $hasActiveReservation = auth()->check()
-            && auth()->user()->rezervacija()
-                ->where('statuss', 'aktīva')
-                ->where('deriguma_beigas', '>', now())
-                ->exists();
+        $hasVerifiedDriverLicense = auth()->check() && trim((string) auth()->user()->vaditaja_apliecibas_statuss) === 'deriga';
+        $hasActiveReservation = auth()->check() && auth()->user()->rezervacija()->where('statuss', 'aktīva')->where('deriguma_beigas', '>', now())->exists();
     @endphp
 
     <script>

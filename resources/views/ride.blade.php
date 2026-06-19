@@ -3,7 +3,6 @@
 
         <div id="ride-view" class="ride-card">
             <div class="ride-header">
-                <span class="page-badge">{{ __('messages.active_ride') }}</span>
                 <h1>{{ __('messages.your_ride_is_active') }}</h1>
                 <p>{{ __('messages.ride_tracking_description') }}</p>
             </div>
@@ -38,7 +37,6 @@
 
         <div id="ride-summary" class="ride-card ride-summary-card" style="display:none">
             <div class="ride-header">
-                <span class="page-badge">{{ __('messages.ride_summary') }}</span>
                 <h1>{{ __('messages.ride_finished') }}</h1>
                 <p>{{ __('messages.ride_summary_description') }}</p>
             </div>
@@ -65,14 +63,13 @@
             </button>
 
             <div id="payment-success" class="payment-success" style="display:none">
-                <h2>✅ {{ __('messages.payment_success') }}</h2>
+                <h2>{{ __('messages.payment_success') }}</h2>
                 <p>{{ __('messages.amount_no_vat') }}: <strong><span id="paid-summa-bez-pvn"></span> €</strong></p>
                 <p>{{ __('messages.amount_with_vat') }}: <strong><span id="paid-summa-ar-pvn"></span> €</strong></p>
                 <p>{{ __('messages.method') }}: <strong><span id="paid-veids"></span></strong></p>
                 <p>{{ __('messages.date') }}: <strong><span id="paid-datums"></span></strong></p>
             </div>
 
-            <a href="/" class="ride-back-link">{{ __('messages.back_to_map') }}</a>
         </div>
 
     </div>
@@ -131,10 +128,11 @@
         }
 
         function getDistance(lat1, lng1, lat2, lng2) {
-            const R = 6371;
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLng = (lng2 - lng1) * Math.PI / 180;
+            const R = 6371; // Zemes rādiuss kilometros
+            const dLat = (lat2 - lat1) * Math.PI / 180; // Radiānu noteikšana
+            const dLng = (lng2 - lng1) * Math.PI / 180; // Radiānu noteikšana
 
+            // cik liels leņķis starp abiem punktiem ir uz Zemes virsmas
             const a =
                 Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.cos(lat1 * Math.PI / 180) *
@@ -142,7 +140,7 @@
                 Math.sin(dLng / 2) *
                 Math.sin(dLng / 2);
 
-            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // pārvērš iepriekš aprēķināto vērtību reālā attālumā kilometros
         }
 
         function setGpsStatus(message, type = '') {
@@ -217,6 +215,7 @@
                         'success'
                     );
 
+                    // Aprēķina attālumu starp iepriekšējo GPS punktu un jauno GPS punktu
                     if (lastPosition) {
                         const segmentDistance = getDistance(
                             lastPosition.lat,
@@ -225,11 +224,7 @@
                             longitude
                         );
 
-                        /*
-                            Filtrs pret GPS "lēkāšanu":
-                            - mazāk par 5m ignorē
-                            - vairāk par 2km starp punktiem ignorē kā kļūdu
-                        */
+                        // GPS mazāk par 5m ignorē, vairāk par 2km starp punktiem ignorē kā kļūdu
                         if (segmentDistance > 0.005 && segmentDistance < 2) {
                             totalDistance += segmentDistance;
                             document.getElementById('distance').textContent = totalDistance.toFixed(2);
@@ -267,7 +262,7 @@
             document.getElementById('timer').textContent = formatTime(elapsedSeconds);
 
             const mins = elapsedSeconds / 60;
-            const price = (mins * 0.50) + (totalDistance * 0.20);
+            const price = (mins * 0.10) + (totalDistance * 0.20);
 
             document.getElementById('price').textContent = price.toFixed(2);
         }, 1000);
@@ -325,5 +320,6 @@
                 window.initRideMap();
             }
         });
+
     </script>
 </x-layout>
